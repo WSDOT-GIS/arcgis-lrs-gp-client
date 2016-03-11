@@ -1,0 +1,88 @@
+﻿{
+  "operationalLayers": [
+    {
+      "id": "BridgeVerticalClearances_1458",
+      "layerType": "ArcGISFeatureLayer",
+      "url": "http://www.wsdot.wa.gov/geosvcs/ArcGIS/rest/services/Bridge/BridgeVerticalClearances/MapServer/0",
+      "visibility": false,
+      "opacity": 1,
+      "mode": 1,
+      "title": "Bridge Crossings",
+      "disablePopup": true
+    },
+    {
+      "id": "BridgeVerticalClearances_1114",
+      "layerType": "ArcGISFeatureLayer",
+      "url": "http://www.wsdot.wa.gov/geosvcs/ArcGIS/rest/services/Bridge/BridgeVerticalClearances/MapServer/1",
+      "visibility": false,
+      "opacity": 1,
+      "mode": 1,
+      "title": "Bridges",
+      "disablePopup": true
+    },
+    {
+      "id": "WaprFtTb",
+      "layerType": "ArcGISFeatureLayer",
+      "url": "http://hqolymgis98d:6080/arcgis/rest/services/Shared/WAPR/MapServer/1",
+      "visibility": false,
+      "opacity": 1,
+      "mode": 1,
+      "title": "WAPR with FT and TB",
+      "layerDefinition": {
+        "minScale": 10000,
+        "maxScale": 0
+      },
+      "disablePopup": true
+    },
+    {
+      "id": "Wapr",
+      "layerType": "ArcGISFeatureLayer",
+      "url": "http://hqolymgis98d:6080/arcgis/rest/services/Shared/WAPR/MapServer/0",
+      "visibility": true,
+      "opacity": 1,
+      "mode": 1,
+      "title": "WAPR",
+      "layerDefinition": {
+        "minScale": 10000,
+        "maxScale": 0
+      },
+      "disablePopup": true
+    }
+  ],
+  "baseMap": {
+    "baseMapLayers": [
+      {
+        "id": "World_Imagery_5077",
+        "layerType": "ArcGISTiledMapServiceLayer",
+        "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "visibility": true,
+        "opacity": 1,
+        "title": "World_Imagery"
+      },
+      {
+        "id": "World_Transportation_7122",
+        "layerType": "ArcGISTiledMapServiceLayer",
+        "url": "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer",
+        "visibility": true,
+        "opacity": 0.73,
+        "title": "World_Transportation"
+      },
+      {
+        "id": "World_Boundaries_and_Places_1080",
+        "layerType": "ArcGISTiledMapServiceLayer",
+        "url": "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer",
+        "visibility": true,
+        "opacity": 1,
+        "title": "World_Boundaries_and_Places"
+      }
+    ],
+    "title": "Imagery Hybrid"
+  },
+  "spatialReference": {
+    "wkid": 102100,
+    "latestWkid": 3857
+  },
+  "authoringApp": "WebMapViewer",
+  "authoringAppVersion": "4.1",
+  "version": "2.4"
+}

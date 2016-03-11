@@ -1,0 +1,52 @@
+﻿html, body, #map, .map.container {
+    padding:0;
+    margin:0;
+    height:100%;
+}
+
+progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1
+}
+
+/* hide the progress bar when map isn't updating */
+.map:not([data-updating]) progress {
+    display: none;
+}
+
+.out-of-range .toolbar, .in-range .out-of-scale-message {
+    display: none;
+}
+
+.out-of-scale-message {
+    background: white;
+    padding: 1em;
+    border-radius: 0 0 0 3px;
+}
+
+.toolbar button {
+    font-size: 20pt;
+}
+
+.toolbar {
+    padding: 1em 1em 0 0;
+}
+
+.toolbar, .out-of-scale-message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.map[data-updating] button {
+    cursor: wait;
+    pointer-events: none;
+    color: lightgray;
+}
+
+#toolbar button > .title {
+    display: none;
+}
