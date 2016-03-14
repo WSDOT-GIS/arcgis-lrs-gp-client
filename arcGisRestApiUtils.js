@@ -99,8 +99,26 @@
         return output;
     }
 
+    /**
+     * Gets the geometry type of a {@link external:FeatureSet}.
+     * @param {external:FeatureSet} featureSet - A feature set.
+     * @returns {string} A string with an "esri"-prefixed geometry type name.
+     * @throws {Error} Throws an error if there is neither a geometryType property
+     * on the featureSet object nor any features with geometry.
+     */
+    function getFeatureSetGeometryType(featureSet) {
+        if (featureSet.geometryType) {
+            return featureSet.geometryType;
+        } else if (featureSet.features && featureSet.features.length > 0) {
+            return getGeometryType(featureSet.features[0].geometry, true);
+        } else {
+            throw new Error("Unable to determine geometry type");
+        }
+    }
+
     return {
         getGeometryType: getGeometryType,
+        getFeatureSetGeometryType: getFeatureSetGeometryType,
         createFeatureSet: createFeatureSet
     };
 

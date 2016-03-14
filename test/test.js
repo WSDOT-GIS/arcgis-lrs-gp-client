@@ -53,7 +53,7 @@ describe("LinearUnit", function () {
         // Invalid values should throw errors on assignment attempt.
         expect(function () { lu.distance = "0"; }).toThrowError(TypeError);
         expect(function () { lu.distance = -4; }).toThrow();
-        expect(function () { lu.units = "esriHogsHeads"; }).toThrow();  
+        expect(function () { lu.units = "esriHogsHeads"; }).toThrow();
     });
     it("Any of the UNIT_VALUES constant values should not throw an error.", function () {
         var lu = new LinearUnit();
@@ -373,10 +373,26 @@ describe("LrsGPParameters", function () {
                 request.send();
             });
 
-            runTests()
+            runTests();
         });
 
 
-
+        describe("Using web workers", function () {
+            it("can be called from web worker", function (done) {
+                var worker = new Worker("../LrsGPWorker.js");
+                worker.onerror = function (error) {
+                    done.fail(error);
+                };
+                worker.onmessage = function (messageEvent) {
+                    console.log("web worker results", messageEvent);
+                    expect(messageEvent).not.toBeFalsy();
+                    expect(messageEvent.data).not.toBeFalsy();
+                    expect(messageEvent.data.features.length).toEqual(6);
+                    done();
+                };
+                console.debug(serviceUrl, lrsGPp);
+                worker.postMessage({ url: serviceUrl, gpParameters: lrsGPp });
+            });
+        });
     });
 });

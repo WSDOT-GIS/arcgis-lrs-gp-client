@@ -68,6 +68,7 @@
     <Content Include="demo\index.css" />
     <Content Include="demo\index.html" />
     <Content Include="demo\index.js" />
+    <Content Include="LrsGPWorker.js" />
     <Content Include="README.markdown" />
     <Content Include="test\index.html" />
     <Content Include="test\test.js" />

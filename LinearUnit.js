@@ -89,7 +89,10 @@
         });
 
         // Initialize the properties if they were provided to constructor.
-        if (distance) {
+        if (arguments.length === 1 && typeof distance === "object") {
+            self.distance = distance.distance;
+            self.units = distance.units;
+        } else if (distance != null) { // eslint-disable-line
             self.distance = distance;
         }
         if (units) {

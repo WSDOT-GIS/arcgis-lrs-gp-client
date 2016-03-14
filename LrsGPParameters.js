@@ -13,10 +13,11 @@
      */
 
     /**
-     * 
+     * Creates a new object that specifies parameters for {@link:LrsGP}.
+     * @param {Object} options - Options used to initialize property values.
      * @alias module:LrsGPParameters
      */
-    function LrsGPParameters() {
+    function LrsGPParameters(options) {
         var Input_Features = null;
         var Route_Features = null;
         var Search_Radius = null;
@@ -132,6 +133,13 @@
             }
 
         });
+
+        var validOptionsRe = /^((?:Input_Features)|(?:Route_Features)|(?:Search_Radius)|(?:Keep_only_the_closest_route_location)|(?:Include_distance_field_on_output_table)|(?:Use_M_Direction_Offsetting)|(?:Generate_an_angle_field)|(?:Calculated_Angle_Type)|(?:Write_the_complement_of_the_angle_to_the_angle_field)|(?:f)|(?:env\:outSR)|(?:env\:processSR)|(?:returnM)|(?:returnZ))$/;
+        for (var name in options) {
+            if (options.hasOwnProperty(name) && validOptionsRe.test(name)) {
+                this[name] = options[name];
+            }
+        }
     }
 
     LrsGPParameters.prototype.toJSON = function () {
