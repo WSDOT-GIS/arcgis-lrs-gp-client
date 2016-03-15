@@ -327,7 +327,7 @@ describe("LrsGPParameters", function () {
                 });
             }, 10000);
 
-            it("should successfully call line GP Service", function (done) {
+            xit("should successfully call line GP Service", function (done) {
                 var startTime = new Date();
                 var gpParams = new LrsGPParameters();
                 gpParams.Input_Features = lineFeatures;
@@ -378,20 +378,103 @@ describe("LrsGPParameters", function () {
 
 
         describe("Using web workers", function () {
+            var expectedResult = {
+                "displayFieldName": "",
+                "hasM": true,
+                "geometryType": "esriGeometryPoint",
+                "spatialReference": {
+                    "wkid": 4326,
+                    "latestWkid": 4326
+                },
+                "fields": [
+                 {
+                     "name": "OID",
+                     "type": "esriFieldTypeOID",
+                     "alias": "OID"
+                 },
+                 {
+                     "name": "RouteId",
+                     "type": "esriFieldTypeString",
+                     "alias": "RouteId",
+                     "length": 60
+                 },
+                 {
+                     "name": "Measure",
+                     "type": "esriFieldTypeDouble",
+                     "alias": "Measure"
+                 },
+                 {
+                     "name": "Distance",
+                     "type": "esriFieldTypeDouble",
+                     "alias": "Distance"
+                 },
+                 {
+                     "name": "INPUTOID",
+                     "type": "esriFieldTypeInteger",
+                     "alias": "INPUTOID"
+                 },
+                 {
+                     "name": "LOC_ANGLE",
+                     "type": "esriFieldTypeDouble",
+                     "alias": "LOC_ANGLE"
+                 }
+                ],
+                "features": [{
+                    "attributes": {
+                        "OID": 1,
+                        "RouteId": "005",
+                        "Measure": 96.9847529424,
+                        "Distance": -0.0017240704366,
+                        "INPUTOID": 0,
+                        "LOC_ANGLE": 155.5977393306128
+                    },
+                    "geometry": {
+                        "x": -122.94777492599997,
+                        "y": 46.91936401900006,
+                        "m": 96.98480000000563
+                    }
+                }],
+                "exceededTransferLimit": false
+            };
+
             it("can be called from web worker", function (done) {
                 var worker = new Worker("../LrsGPWorker.js");
+                var gpParameters = new LrsGPParameters();
+                gpParameters.Input_Features = {
+                    features: [
+                        {
+                            "geometry": {
+                                "x": -122.94777492599997,
+                                "y": 46.91936401900006
+                            }
+                        }
+                    ],
+                    spatialReference: {
+                        wkid: 4326
+                    }
+
+                }
+                gpParameters["env:outSR"] = 4326;
+                gpParameters.Filter_Expression = ["005"];
+                gpParameters.Search_Radius = new LinearUnit(10, LinearUnit.UNIT_VALUES.FEET);
                 worker.onerror = function (error) {
                     done.fail(error);
                 };
                 worker.onmessage = function (messageEvent) {
+                    var featureSet, feature, geometry;
                     console.log("web worker results", messageEvent);
-                    expect(messageEvent).not.toBeFalsy();
-                    expect(messageEvent.data).not.toBeFalsy();
-                    expect(messageEvent.data.features.length).toEqual(6);
+                    expect(messageEvent && messageEvent.data).not.toBeFalsy();
+                    featureSet = messageEvent.data;
+                    expect(featureSet.features).not.toBeFalsy();
+                    expect(featureSet.features.length).toEqual(1);
+                    feature = featureSet.features[0];
+                    geometry = feature.geometry;
+                    expect(geometry.x).toEqual(-122.94777492599997);
+                    expect(geometry.y).toEqual(46.91936401900006);
                     done();
                 };
                 console.debug(serviceUrl, lrsGPp);
-                worker.postMessage({ url: serviceUrl, gpParameters: lrsGPp });
+                worker.postMessage({ url: serviceUrl, gpParameters: gpParameters });
             });
         });
     });

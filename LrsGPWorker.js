@@ -13,7 +13,6 @@ importScripts('objectUtils.js',
 
 self.addEventListener("message", function (message) {
     // Exit if the expected parameters are not provided.
-    console.debug("worker message from worker", message);
     if (!(message.data && message.data.url && message.data.gpParameters)) {
         self.postMessage("Not provided: 'url' and 'gpParameters' properties.");
         self.close();

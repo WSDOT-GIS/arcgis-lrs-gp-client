@@ -20,6 +20,7 @@
     function LrsGPParameters(options) {
         var Input_Features = null;
         var Route_Features = null;
+        var Filter_Expression = null;
         var Search_Radius = null;
         var Keep_only_the_closest_route_location = null;
         var Include_distance_field_on_output_table = null;
@@ -51,6 +52,29 @@
                         Route_Features = v;
                     } else {
                         throw new Error("Invalid value.");
+                    }
+                }
+            },
+            Filter_Expression: {
+                enumerable: true,
+                get: function () {
+                    return Filter_Expression;
+                },
+                set: function (value) {
+                    if (value === null) {
+                        Filter_Expression = null;
+                    } else if (Array.isArray(value)) {
+                        if (value.length < 1) {
+                            Filter_Expression = null;
+                        } else if (value.length === 1) {
+                            Filter_Expression = "RouteID = '" + value + "'";
+                        } else {
+                            Filter_Expression = "RouteID IN (" + value.map(function (routeId) {
+                                return "'" + routeId + "'"
+                            }).join(",") + ")";
+                        }
+                    } else if (typeof value === "string") {
+                        Filter_Expression = value;
                     }
                 }
             },
@@ -134,7 +158,7 @@
 
         });
 
-        var validOptionsRe = /^((?:Input_Features)|(?:Route_Features)|(?:Search_Radius)|(?:Keep_only_the_closest_route_location)|(?:Include_distance_field_on_output_table)|(?:Use_M_Direction_Offsetting)|(?:Generate_an_angle_field)|(?:Calculated_Angle_Type)|(?:Write_the_complement_of_the_angle_to_the_angle_field)|(?:f)|(?:env\:outSR)|(?:env\:processSR)|(?:returnM)|(?:returnZ))$/;
+        var validOptionsRe = /^((?:Input_Features)|(?:Route_Features)|(?:Filter_Expression)|(?:Search_Radius)|(?:Keep_only_the_closest_route_location)|(?:Include_distance_field_on_output_table)|(?:Use_M_Direction_Offsetting)|(?:Generate_an_angle_field)|(?:Calculated_Angle_Type)|(?:Write_the_complement_of_the_angle_to_the_angle_field)|(?:f)|(?:env\:outSR)|(?:env\:processSR)|(?:returnM)|(?:returnZ))$/;
         for (var name in options) {
             if (options.hasOwnProperty(name) && validOptionsRe.test(name)) {
                 this[name] = options[name];

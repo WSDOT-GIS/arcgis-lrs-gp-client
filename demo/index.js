@@ -12,7 +12,8 @@
     "esri/symbols/SimpleLineSymbol",
     "esri/tasks/query",
     "esri/toolbars/draw",
-    "LrsGP",
+    "LrsGP/arcGisRestApiUtils",
+    "LrsGP/LrsGPParameters",
     "dojo/text!./webmap/data.json",
     "dojo/text!./webmap/description.json"
 ], function (
@@ -29,23 +30,39 @@
     SimpleLineSymbol,
     Query,
     Draw,
-    LrsGP,
+    arcGisRestApiUtils,
+    LrsGPParameters,
     webmapData,
     webmapDesc
 ) {
     "use strict";
 
-    // Setup route select dialog.
-    (function () {
-        var routeSelectButton = document.getElementById("routeSelectButton");
-        routeSelectButton.addEventListener("click", function () {
-            var dialog = document.getElementById("dialog");
-            var select = dialog.querySelector("select");
-            dialog.dataset.selectedRouteIndex = select.value;
-        });
-    }());
+    var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
+
+    var modal;
+
+
 
     function showRouteSelectDialog(routeFeatures) {
+
+        function setupModal() {
+            modal = $(dialog).modal(document.getElementById("dialog"));
+            var routeSelectButton = document.getElementById("routeSelectButton");
+            routeSelectButton.addEventListener("click", function () {
+                var dialog = document.getElementById("dialog");
+                var select = dialog.querySelector("select");
+                dialog.dataset.selectedRouteIndex = select.value;
+                modal.modal('hide');
+            });
+
+        }
+
+        if (!modal) {
+            // Setup route select dialog.
+            setupModal();
+        }
+
+
         return new Promise(function (resolve, reject) {
             var dialog = document.getElementById("dialog");
             delete dialog.dataset.selectedRoute;
@@ -60,9 +77,11 @@
             });
             select.appendChild(frag);
             var modal = $(dialog).modal('show');
-            var routeIndex = dialog.dataset.selectedRouteIndex;
-            var selectedRoute = routeFeatures[routeIndex];
-            resolve(selectedRoute);
+            modal.one('hidden.bs.modal', function (e) {
+                var routeIndex = dialog.dataset.selectedRouteIndex;
+                var selectedRoute = routeFeatures[routeIndex];
+                resolve(selectedRoute);
+            });
         });
     }
 
@@ -232,20 +251,49 @@
                         pointsLayer.remove(pg);
                     });
                 } // else, there clicked point just drawn will remain the geometry.
-                console.debug("geometry", geometry);
 
                 querySnapLayers(geometry, snapLayers).then(function (routeFeatures) {
-                    console.debug("feature query results", {
-                        drawnGeometry: e.geometry,
-                        drawnGeometryGeographic: e.geographicGeometry,
-                        matchingRoutes: routeFeatures
-                    });
+
+                    /**
+                     * Runs the LRS GP feature.
+                     * @param {(esri/geometry/Point|esri/geometry/Polyline)} geometry - A point or a polyline.
+                     * @param {string} route - Route ID.
+                     * @returns {Promise} - A promise. Result feature set from LRS GP service.
+                     */
+                    function runGP(geometry, route) {
+
+                        return new Promise(function (resolve, reject) {
+                            // TODO: Route is currently unused.
+                            var gpParams = new LrsGPParameters({
+                                Input_Features: arcGisRestApiUtils.createFeatureSet([geometry]),
+                                Distance: { distance: 10, units: "esriFeet" }
+                            });
+                            var worker = new Worker("../LrsGPWorker.js");
+                            worker.onmessage = function (e) {
+                                resolve(e.data);
+                            };
+                            worker.onerror = function (err) {
+                                reject(err);
+                            };
+                            worker.postMessage({
+                                url: lrsGPUrl,
+                                gpParameters: gpParams
+                            });
+                        });
+                    }
+
+                    var gpComplete = function (e) {
+                        console.debug("GP Message FeatureSet", e);
+                    };
+                    var gpFail = function (err) {
+                        console.error("GP Fail", err);
+                    };
 
                     if (routeFeatures.length === 1) {
-                        console.debug("only one route matched drawn feature", routeFeatures[0]);
+                        runGP(e.geometry, routeFeatures[0].attributes.RouteID).then(gpComplete, gpFail);
                     } else if (routeFeatures.length > 1) {
                         showRouteSelectDialog(routeFeatures).then(function (route) {
-                            console.debug("selected route", route);
+                            runGP(e.geometry, route.attributes.RouteID).then(gpComplete, gpFail);
                         });
                     } else {
                         alert("No matching routes were returned.");
