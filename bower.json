@@ -28,5 +28,8 @@
   ],
   "devDependencies": {
     "jasmine-core": "^2.4.1"
+  },
+  "dependencies": {
+    "core.js": "~2.2.0"
   }
 }

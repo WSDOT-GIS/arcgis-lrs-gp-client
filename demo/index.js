@@ -3,6 +3,7 @@
     "esri/config",
     "esri/arcgis/utils",
     "esri/geometry/Multipoint",
+    "esri/geometry/Polyline",
     "esri/graphic",
     "esri/map",
     "esri/layers/FeatureLayer",
@@ -21,6 +22,7 @@
     esriConfig,
     arcgisUtils,
     Multipoint,
+    Polyline,
     Graphic,
     Map,
     FeatureLayer,
@@ -37,11 +39,20 @@
 ) {
     "use strict";
 
-    var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
+    var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LRS/GPServer/";
 
     var modal;
 
-
+    /**
+     * Converts a multipoint into a polyline
+     * @param {esri/geometry/Multipoint} mp - a multipoint geometry.
+     * @returns {esri/geometry/Polyline} a polyline
+     */
+    function multipointToPolyline(mp) {
+        var polyline = new Polyline(mp.spatialReference);
+        polyline.addPath(mp.points);
+        return polyline;
+    }
 
     function showRouteSelectDialog(routeFeatures) {
 
@@ -162,7 +173,6 @@
     var pointCount = 0;
     var pointLimit = 0;
 
-
     var snapLayers = [];
 
     arcgisUtils.createMap({
@@ -245,14 +255,20 @@
 
                 if (tempPointGraphics.length > 1) {
                     // Combine the two drawn points into a multipoint.
+
                     geometry = new Multipoint(geometry.spatialReference);
-                    tempPointGraphics.forEach(function (pg) {
-                        geometry.addPoint(pg.geometry);
-                        pointsLayer.remove(pg);
+                    tempPointGraphics.forEach(function (g) {
+                        geometry.addPoint(g.geometry);
+                        var output = g.geometry;
+                        pointsLayer.remove(g);
                     });
                 } // else, there clicked point just drawn will remain the geometry.
 
-                querySnapLayers(geometry, snapLayers).then(function (routeFeatures) {
+                querySnapLayers(geometry, snapLayers.filter(function (layer) {
+                    return layer.visible;
+                })).then(function (routeFeatures) {
+
+                    console.debug("route features", routeFeatures);
 
                     /**
                      * Runs the LRS GP feature.
@@ -265,12 +281,20 @@
                         return new Promise(function (resolve, reject) {
                             // TODO: Route is currently unused.
                             var gpParams = new LrsGPParameters({
-                                Input_Features: arcGisRestApiUtils.createFeatureSet([geometry]),
-                                Distance: { distance: 10, units: "esriFeet" }
+                                Input_Features: arcGisRestApiUtils.createFeatureSet([
+                                    // If multipoint, convert to polyline.
+                                    geometry.type === "multipoint" ? multipointToPolyline(geometry) : geometry
+                                ]),
+                                Distance: { distance: 10, units: "esriFeet" },
+                                "env:outSR": 3857
                             });
                             var worker = new Worker("../LrsGPWorker.js");
                             worker.onmessage = function (e) {
-                                resolve(e.data);
+                                var features = e.data.features;
+                                features = features.filter(function (feature) {
+                                    return feature.attributes.RouteId === route || feature.attributes.RID === route;
+                                });
+                                resolve(features);
                             };
                             worker.onerror = function (err) {
                                 reject(err);
@@ -283,20 +307,37 @@
                     }
 
                     var gpComplete = function (e) {
+                        var layer;
                         console.debug("GP Message FeatureSet", e);
+                        var resultGraphic;
+                        if (e.length === 1) {
+                            resultGraphic = new Graphic(e[0]);
+                            resultGraphic.geometry.setSpatialReference(map.spatialReference);
+                            layer = resultGraphic.geometry.paths ? linesLayer : pointsLayer;
+                            console.log("result graphic", resultGraphic);
+                            if (layer === pointsLayer) {
+                                pointsLayer.remove(graphic);
+                            }
+                            layer.add(resultGraphic);
+                        } else if (e.length > 1) {
+                            alert("More than one match was found.");
+                        } else {
+                            alert("No matches found.");
+                        }
                     };
                     var gpFail = function (err) {
                         console.error("GP Fail", err);
                     };
 
                     if (routeFeatures.length === 1) {
-                        runGP(e.geometry, routeFeatures[0].attributes.RouteID).then(gpComplete, gpFail);
+                        runGP(geometry, routeFeatures[0].attributes.RouteID).then(gpComplete, gpFail);
                     } else if (routeFeatures.length > 1) {
                         showRouteSelectDialog(routeFeatures).then(function (route) {
-                            runGP(e.geometry, route.attributes.RouteID).then(gpComplete, gpFail);
+                            runGP(geometry, route.attributes.RouteID).then(gpComplete, gpFail);
                         });
                     } else {
                         alert("No matching routes were returned.");
+                        pointsLayer.remove(graphic);
                     }
                 });
             }
