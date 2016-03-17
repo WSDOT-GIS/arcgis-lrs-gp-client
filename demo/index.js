@@ -39,6 +39,9 @@
 ) {
     "use strict";
 
+    var dialog = document.querySelector('dialog');
+    dialogPolyfill.registerDialog(dialog);
+
     var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LRS/GPServer/";
 
     var modal;
@@ -56,27 +59,8 @@
 
     function showRouteSelectDialog(routeFeatures) {
 
-        function setupModal() {
-            modal = $(dialog).modal(document.getElementById("dialog"));
-            var routeSelectButton = document.getElementById("routeSelectButton");
-            routeSelectButton.addEventListener("click", function () {
-                var dialog = document.getElementById("dialog");
-                var select = dialog.querySelector("select");
-                dialog.dataset.selectedRouteIndex = select.value;
-                modal.modal('hide');
-            });
-
-        }
-
-        if (!modal) {
-            // Setup route select dialog.
-            setupModal();
-        }
-
 
         return new Promise(function (resolve, reject) {
-            var dialog = document.getElementById("dialog");
-            delete dialog.dataset.selectedRoute;
             var select = dialog.querySelector("select");
             select.innerHTML = "";
             var frag = document.createDocumentFragment();
@@ -87,12 +71,13 @@
                 frag.appendChild(option);
             });
             select.appendChild(frag);
-            var modal = $(dialog).modal('show');
-            modal.one('hidden.bs.modal', function (e) {
-                var routeIndex = dialog.dataset.selectedRouteIndex;
-                var selectedRoute = routeFeatures[routeIndex];
+            dialog.showModal();
+            var listener = function (e) {
+                var selectedRoute = routeFeatures[select.selectedIndex];
+                dialog.removeEventListener("close", listener);
                 resolve(selectedRoute);
-            });
+            };
+            dialog.addEventListener("close", listener);
         });
     }
 
