@@ -3,11 +3,12 @@
 /// <reference path="../bower_components/jasmine-core/lib/jasmine-core/boot.js" />
 /// <reference path="../objectUtils.js" />
 /// <reference path="../arcGisRestApiUtils.js" />
+/// <reference path="../EventTableProperties.js" />
 /// <reference path="../LinearUnit.js" />
 /// <reference path="../LrsGPParameters.js" />
 /// <reference path="../LrsGP.js" />
 
-var serviceUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
+var serviceUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LRS/GPServer/";
 
 describe("objectUtils", function () {
     // Create test object.
@@ -67,6 +68,24 @@ describe("LinearUnit", function () {
 
     });
 
+});
+
+describe("EventTableProperties", function () {
+    it("test default constructor values", function () {
+        var etp = new EventTableProperties();
+        expect(etp.routeIdField).toEqual("RID");
+        expect(etp.eventType).toEqual("POINT");
+        expect(etp.fromMeasureField).toEqual("MEAS");
+        expect(etp.toMeasureField).toBeNull();
+        expect(etp.toString()).toEqual("RID POINT MEAS");
+        etp = new EventTableProperties("RID", "LINE");
+        expect(etp.fromMeasureField).toEqual("FMEAS");
+        expect(etp.toMeasureField).toEqual("TMEAS");
+        expect(etp.toString()).toEqual("RID LINE FMEAS TMEAS");
+        expect(function () {
+            etp.eventType = "DIAGONAL";
+        }).toThrow();
+    });
 });
 
 describe("arcGisRestApiUtils", function () {
@@ -194,7 +213,7 @@ describe("arcGisRestApiUtils", function () {
     });
 });
 
-describe("LrsGPParameters", function () {
+describe("LrsGP", function () {
     var lrsGPp = new LrsGPParameters();
     lrsGPp.Input_Features = {
         "features": [
@@ -378,20 +397,103 @@ describe("LrsGPParameters", function () {
 
 
         describe("Using web workers", function () {
+            var expectedResult = {
+                "displayFieldName": "",
+                "hasM": true,
+                "geometryType": "esriGeometryPoint",
+                "spatialReference": {
+                    "wkid": 4326,
+                    "latestWkid": 4326
+                },
+                "fields": [
+                 {
+                     "name": "OID",
+                     "type": "esriFieldTypeOID",
+                     "alias": "OID"
+                 },
+                 {
+                     "name": "RouteId",
+                     "type": "esriFieldTypeString",
+                     "alias": "RouteId",
+                     "length": 60
+                 },
+                 {
+                     "name": "Measure",
+                     "type": "esriFieldTypeDouble",
+                     "alias": "Measure"
+                 },
+                 {
+                     "name": "Distance",
+                     "type": "esriFieldTypeDouble",
+                     "alias": "Distance"
+                 },
+                 {
+                     "name": "INPUTOID",
+                     "type": "esriFieldTypeInteger",
+                     "alias": "INPUTOID"
+                 },
+                 {
+                     "name": "LOC_ANGLE",
+                     "type": "esriFieldTypeDouble",
+                     "alias": "LOC_ANGLE"
+                 }
+                ],
+                "features": [{
+                    "attributes": {
+                        "OID": 1,
+                        "RouteId": "005",
+                        "Measure": 96.9847529424,
+                        "Distance": -0.0017240704366,
+                        "INPUTOID": 0,
+                        "LOC_ANGLE": 155.5977393306128
+                    },
+                    "geometry": {
+                        "x": -122.94777492599997,
+                        "y": 46.91936401900006,
+                        "m": 96.98480000000563
+                    }
+                }],
+                "exceededTransferLimit": false
+            };
+
             it("can be called from web worker", function (done) {
                 var worker = new Worker("../LrsGPWorker.js");
+                var gpParameters = new LrsGPParameters();
+                gpParameters.Input_Features = {
+                    features: [
+                        {
+                            "geometry": {
+                                "x": -122.94777492599997,
+                                "y": 46.91936401900006
+                            }
+                        }
+                    ],
+                    spatialReference: {
+                        wkid: 4326
+                    }
+
+                }
+                gpParameters["env:outSR"] = 4326;
+                gpParameters.Filter_Expression = ["005"];
+                gpParameters.Search_Radius = new LinearUnit(10, LinearUnit.UNIT_VALUES.FEET);
                 worker.onerror = function (error) {
                     done.fail(error);
                 };
                 worker.onmessage = function (messageEvent) {
+                    var featureSet, feature, geometry;
                     console.log("web worker results", messageEvent);
-                    expect(messageEvent).not.toBeFalsy();
-                    expect(messageEvent.data).not.toBeFalsy();
-                    expect(messageEvent.data.features.length).toEqual(6);
+                    expect(messageEvent && messageEvent.data).not.toBeFalsy();
+                    featureSet = messageEvent.data;
+                    expect(featureSet.features).not.toBeFalsy();
+                    expect(featureSet.features.length).toEqual(1);
+                    feature = featureSet.features[0];
+                    geometry = feature.geometry;
+                    expect(geometry.x).toEqual(-122.94777492599997);
+                    expect(geometry.y).toEqual(46.91936401900006);
                     done();
                 };
                 console.debug(serviceUrl, lrsGPp);
-                worker.postMessage({ url: serviceUrl, gpParameters: lrsGPp });
+                worker.postMessage({ url: serviceUrl, gpParameters: gpParameters });
             });
         });
     });
