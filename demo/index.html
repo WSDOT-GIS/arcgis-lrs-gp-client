@@ -5,18 +5,13 @@
     <title>GP Service Test</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous" async="async" />
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//code.jquery.com/jquery-2.2.1.min.js" integrity="sha384-8C+3bW/ArbXinsJduAjm9O7WNnuOcO+Bok/VScRYikawtvz4ZPrpXtGfKIewM9dK" crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="//js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
     <link rel="stylesheet" href="//js.arcgis.com/3.16/esri/themes/calcite/esri/esri.css">
     <link href="index.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="http://www.wsdot.wa.gov/favicon.ico" />
+    <script src="../bower_components/dialog-polyfill/dialog-polyfill.js"></script>
+    <link href="../bower_components/dialog-polyfill/dialog-polyfill.css" rel="stylesheet" />
 </head>
 <body class="calcite">
     <div id="map">
@@ -29,24 +24,18 @@
         </div>
         <progress id="updatingProgress">Updating map...</progress>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Select a route</h4>
-                </div>
-                <div class="modal-body">
-                    <select id="routeSelect">
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="routeSelectButton">Select</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    <dialog id="dialog">
+        <form method="dialog">
+            <h1 class="modal-title">Select a route</h1>
+            <div class="modal-body">
+                <select id="routeSelect" name="route"></select>
+            </div>
+            <menu>
+                <!--<button type="reset">Cancel</button>-->
+                <button type="submit">Select</button>
+            </menu>
+        </form>
+    </dialog><!-- /.modal -->
     <script>
         var dojoConfig = {
             async: true,

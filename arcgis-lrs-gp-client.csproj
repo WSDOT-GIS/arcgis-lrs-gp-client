@@ -60,6 +60,8 @@
     <Content Include="bower.json" />
     <Content Include="bower_components\core.js\client\core.js" />
     <Content Include="bower_components\core.js\client\core.min.js" />
+    <Content Include="bower_components\dialog-polyfill\dialog-polyfill.css" />
+    <Content Include="bower_components\dialog-polyfill\dialog-polyfill.js" />
     <Content Include="bower_components\jasmine-core\images\jasmine-horizontal.png" />
     <Content Include="bower_components\jasmine-core\images\jasmine-horizontal.svg" />
     <Content Include="bower_components\jasmine-core\images\jasmine_favicon.png" />
