@@ -100,6 +100,10 @@
         }
     }
 
+    /**
+     * List of the valid linear unit types.
+     * @type {Object.<string, string>}
+     */
     Object.defineProperty(LinearUnit, "UNIT_VALUES", { value: unitValues });
 
     return LinearUnit;

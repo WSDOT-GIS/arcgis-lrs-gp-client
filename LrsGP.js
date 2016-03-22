@@ -18,9 +18,14 @@
      */
 
     /**
+     * @external FeatureSet
+     * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/FeatureSet_object/02r3000002mn000000/|FeatureSet object}
+     */
+
+    /**
      * Executes a synchronous GP tool.
      * @param {string} url - The URL to execute the GP tool.
-     * @returns {Promise.<GPResult>} A promise with the results of the GP tool.
+     * @returns {Promise.<external:FeatureSet>} A promise with the results of the GP tool.
      */
     function execute(url) {
         return new Promise(function (resolve, reject) {
@@ -87,12 +92,22 @@
         });
     }
 
+    /**
+     * Locates points along routes.
+     * @param {module:LrsGPParameters} lrsGpParams - LRS GP Parameters.
+     * @returns {Promise.<external:FeatureSet>} - Returns a promise with a Feature Set.
+     */
     LrsGP.prototype.pointsToRouteEvents = function (lrsGpParams) {
         var url = this.pointTaskUrl;
         url += "?" + lrsGpParams.toUrlSearch();
         return execute(url);
     };
 
+    /**
+     * Locates line segments along routes.
+     * @param {module:LrsGPParameters} lrsGpParams - LRS GP Parameters.
+     * @returns {Promise.<external:FeatureSet>} - Returns a promise with a Feature Set.
+     */
     LrsGP.prototype.pointsToRouteSegments = function (lrsGpParams) {
         var url = this.linesTaskUrl;
         url += "?" + lrsGpParams.toUrlSearch();

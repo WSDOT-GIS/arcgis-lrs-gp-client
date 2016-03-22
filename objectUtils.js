@@ -9,6 +9,11 @@
 }(this, function () {
 
     /**
+     * A utility module for manipulating objects.
+     * @exports objectUtils
+     */
+
+    /**
      * Checks to see if an object contains ALL of the specified named properties.
      * @param {Object} o - An object
      * @param {...string} names - Property names
@@ -64,7 +69,7 @@
             } else if (typeof value === "object" && value) {
                 value = value.toJSON ? value.toJSON() : JSON.stringify(value);
             }
-            
+
             if (value != null || !omitNulls) { // eslint-disable-line
                 output.push([encodeURIComponent(propName), encodeURIComponent(value)].join("="));
             }

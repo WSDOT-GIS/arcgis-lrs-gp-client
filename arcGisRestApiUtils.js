@@ -9,6 +9,11 @@
 }(this, function (objectUtils) {
 
     /**
+     * A module with ArcGIS REST API utility functions.
+     * @exports arcGisRestApiUtils
+     */
+
+    /**
      * ArcGIS REST API feature set.
      * @external FeatureSet
      * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/FeatureSet_object/02r3000002mn000000/|FeatureSet object}

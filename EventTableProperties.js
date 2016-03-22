@@ -78,6 +78,10 @@
         }
     }
 
+    /**
+     * Returns a string representation of the EventTableProperties.
+     * @returns {string} string representation of EventTableProperties.
+     */
     EventTableProperties.prototype.toString = function () {
         var output;
         if (this.eventType === "LINE") {
@@ -88,6 +92,11 @@
         return output;
     }
 
+    /**
+     * This function will return the string representation of this object
+     * when serialized to JSON.
+     * @returns {string} Returns the string representation of the EventTableProperties.
+     */
     EventTableProperties.prototype.toJSON = function () {
         return this.toString();
     }
