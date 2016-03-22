@@ -13,6 +13,7 @@ The main module is the `LrsGP` module. If loading via HTML `script` tags, the mo
 1. `objectUtils.js`
 2. `arcGisRestApiUtils.js`
 3. `LinearUnit.js`
+3. `EventTableProperties.js`
 4. `LrsGPParameters.js`
 5. `LrsGP.js`
 

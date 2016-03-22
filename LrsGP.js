@@ -50,7 +50,7 @@
      * @param {string} options.url - The URL of the linear referencing GP service.
      * @param {Boolean} [options.async=false] - Specifies that the GP service is asynchronous.
      * @param {string} [options.pointTaskName="Points to Route Events"] - Name of the task that converts points to route events.
-     * @param {string} [options.linesTaskName="Lines to Route Events"] - Name of the task that converts polylines to route events.
+     * @param {string} [options.linesTaskName="Points to Route Segments"] - Name of the task that converts polylines to route events.
      * @example http://example.com/arcgis/rest/services/OptionalFolderLevel/LinearReferencing/GPServer
      */
     function LrsGP(options) {
@@ -59,10 +59,10 @@
         } else if (!options.url) {
             throw new TypeError("No url option was provided.");
         }
-        // Set the url variable and trim trailing 
+        // Set the url variable and trim trailing
         var url = options.url.replace(/\/$/, "");
         var pointTaskName = options.pointTaskName || "Points to Route Events";
-        var linesTaskName = options.linesTaskName || "Lines to Route Events";
+        var linesTaskName = options.linesTaskName || "Points to Route Segments";
         var async = options.async || false;
 
         // TODO: Implement Async support.
@@ -93,7 +93,7 @@
         return execute(url);
     };
 
-    LrsGP.prototype.linesToRouteEvents = function (lrsGpParams) {
+    LrsGP.prototype.pointsToRouteSegments = function (lrsGpParams) {
         var url = this.linesTaskUrl;
         url += "?" + lrsGpParams.toUrlSearch();
         return execute(url);

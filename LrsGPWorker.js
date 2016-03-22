@@ -39,7 +39,7 @@ self.addEventListener("message", function (message) {
     };
 
     if (/line/.test(geometryType)) {
-        gp.linesToRouteEvents(gpParams).then(responseHandler, errorHandler);
+        gp.pointsToRouteSegments(gpParams).then(responseHandler, errorHandler);
     } else {
         gp.pointsToRouteEvents(gpParams).then(responseHandler, errorHandler);
     }
