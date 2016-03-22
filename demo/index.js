@@ -39,6 +39,9 @@
 ) {
     "use strict";
 
+    // The dialog polyfill requires a registration step.
+    // Register the dialogs with the polyfill if the browser
+    // does not natively support the dialog element.
     if (window.needsDialogPolyfill) {
         (function () {
             var dialogs = document.querySelectorAll('dialog');
@@ -48,23 +51,16 @@
         }());
     }
 
+    // TODO: Update to production URL once the service has been pushed to production.
     var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
 
-    var modal;
-
     /**
-     * Converts a multipoint into a polyline
-     * @param {esri/geometry/Multipoint} mp - a multipoint geometry.
-     * @returns {esri/geometry/Polyline} a polyline
+     * Shows the route select dialog.
+     * @param {esri/Graphic[]} routeFeatures - An array of one or two point graphics.
+     * @returns {Promise.<esri/Graphic>} - A promise is returned with the selected route
+     * graphic once the user has made a selection.
      */
-    function multipointToPolyline(mp) {
-        var polyline = new Polyline(mp.spatialReference);
-        polyline.addPath(mp.points);
-        return polyline;
-    }
-
     function showRouteSelectDialog(routeFeatures) {
-
 
         return new Promise(function (resolve, reject) {
             var select = dialog.querySelector("select");
@@ -89,6 +85,7 @@
 
 
     // Add WSDOT servers to those that are known to support CORS.
+    // TODO: Remove test server once GP service is in production.
     ["www.wsdot.wa.gov", "data.wsdot.wa.gov", "hqolymgis98d"].forEach(function (server) {
         esriConfig.defaults.io.corsEnabledServers.push(server);
     });
@@ -184,6 +181,9 @@
             layer.setAutoGeneralize(false);
         });
 
+        // Setup symbology for layers.
+        // TODO: Use different symbols for points the user just drew and
+        // ones that have been located along the route using GP tool.
         var pointSymbol = new SimpleMarkerSymbol();
         pointSymbol.setColor("#00ffff");
         var lineSymbol = new SimpleLineSymbol();
@@ -270,17 +270,20 @@
                     function runGP(tempPointGraphics, route) {
 
                         return new Promise(function (resolve, reject) {
-                            // TODO: Route is currently unused.
+                            // TODO: Route is currently unused. It will be passed to GP tool once it allows filtering the routes that are searched.
                             var gpParams = new LrsGPParameters({
                                 Input_Features: arcGisRestApiUtils.createFeatureSet(tempPointGraphics.map(function (g) {
                                     return g.geometry;
                                 })),
-                                Distance: { distance: 10, units: "esriFeet" },
+                                Search_Radius: { distance: 50, units: "esriFeet" },
+                                // By default, the features will be returned as 2927.
+                                // Specify that they should be returned in the map's spatial reference instead.
                                 "env:outSR": 3857
                             });
                             var worker = new Worker("../LrsGPWorker.js");
                             worker.onmessage = function (e) {
                                 var features = e.data.features;
+                                // Filter the features so that only the ones that match the "route" parameter are returned.
                                 features = features.filter(function (feature) {
                                     return feature.attributes.RouteId === route || feature.attributes.RouteID === route;
                                 });
@@ -291,7 +294,7 @@
                             };
                             worker.postMessage({
                                 url: lrsGPUrl,
-                                task: "Points to Route Segments",
+                                task: tempPointGraphics.length > 1 ? "Points to Route Segments" : "Points to Route Events",
                                 gpParameters: gpParams
                             });
                         });
