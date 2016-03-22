@@ -39,10 +39,16 @@
 ) {
     "use strict";
 
-    var dialog = document.querySelector('dialog');
-    dialogPolyfill.registerDialog(dialog);
+    if (window.needsDialogPolyfill) {
+        (function () {
+            var dialogs = document.querySelectorAll('dialog');
+            for (var i = 0; i < dialogs.length; i++) {
+                dialogPolyfill.registerDialog(dialogs[i]);
+            }
+        }());
+    }
 
-    var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LRS/GPServer/";
+    var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
 
     var modal;
 
@@ -257,19 +263,18 @@
 
                     /**
                      * Runs the LRS GP feature.
-                     * @param {(esri/geometry/Point|esri/geometry/Polyline)} geometry - A point or a polyline.
+                     * @param {(esri/geometry/Point|esri/geometry/Polyline)} tempPointGraphics - A point or a polyline.
                      * @param {string} route - Route ID.
                      * @returns {Promise} - A promise. Result feature set from LRS GP service.
                      */
-                    function runGP(geometry, route) {
+                    function runGP(tempPointGraphics, route) {
 
                         return new Promise(function (resolve, reject) {
                             // TODO: Route is currently unused.
                             var gpParams = new LrsGPParameters({
-                                Input_Features: arcGisRestApiUtils.createFeatureSet([
-                                    // If multipoint, convert to polyline.
-                                    geometry.type === "multipoint" ? multipointToPolyline(geometry) : geometry
-                                ]),
+                                Input_Features: arcGisRestApiUtils.createFeatureSet(tempPointGraphics.map(function (g) {
+                                    return g.geometry;
+                                })),
                                 Distance: { distance: 10, units: "esriFeet" },
                                 "env:outSR": 3857
                             });
@@ -277,7 +282,7 @@
                             worker.onmessage = function (e) {
                                 var features = e.data.features;
                                 features = features.filter(function (feature) {
-                                    return feature.attributes.RouteId === route || feature.attributes.RID === route;
+                                    return feature.attributes.RouteId === route || feature.attributes.RouteID === route;
                                 });
                                 resolve(features);
                             };
@@ -286,6 +291,7 @@
                             };
                             worker.postMessage({
                                 url: lrsGPUrl,
+                                task: "Points to Route Segments",
                                 gpParameters: gpParams
                             });
                         });
@@ -315,10 +321,10 @@
                     };
 
                     if (routeFeatures.length === 1) {
-                        runGP(geometry, routeFeatures[0].attributes.RouteID).then(gpComplete, gpFail);
+                        runGP(tempPointGraphics, routeFeatures[0].attributes.RouteID).then(gpComplete, gpFail);
                     } else if (routeFeatures.length > 1) {
                         showRouteSelectDialog(routeFeatures).then(function (route) {
-                            runGP(geometry, route.attributes.RouteID).then(gpComplete, gpFail);
+                            runGP(tempPointGraphics, route.attributes.RouteID).then(gpComplete, gpFail);
                         });
                     } else {
                         alert("No matching routes were returned.");

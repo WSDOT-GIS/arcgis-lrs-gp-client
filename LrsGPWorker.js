@@ -26,6 +26,8 @@ self.addEventListener("message", function (message) {
 
     var gpParams = new LrsGPParameters(message.data.gpParameters);
 
+    var task = message.data.task;
+
     var geometryType = arcGisRestApiUtils.getFeatureSetGeometryType(gpParams.Input_Features);
 
     var responseHandler = function (gpResults) {
@@ -38,7 +40,7 @@ self.addEventListener("message", function (message) {
         self.close();
     };
 
-    if (/line/.test(geometryType)) {
+    if (task && /Route\s?Segment/i.test(task)) {
         gp.pointsToRouteSegments(gpParams).then(responseHandler, errorHandler);
     } else {
         gp.pointsToRouteEvents(gpParams).then(responseHandler, errorHandler);
