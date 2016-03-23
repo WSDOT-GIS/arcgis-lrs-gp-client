@@ -1,5 +1,6 @@
 ﻿require([
     "dojo/promise/all",
+    "esri/InfoTemplate",
     "esri/config",
     "esri/arcgis/utils",
     "esri/geometry/Multipoint",
@@ -19,6 +20,7 @@
     "dojo/text!./webmap/description.json"
 ], function (
     all,
+    InfoTemplate,
     esriConfig,
     arcgisUtils,
     Multipoint,
@@ -195,10 +197,18 @@
 
         var drawToolbar = new Draw(map);
 
-        linesLayer = new GraphicsLayer({ id: "lines" });
-        linesLayer.setRenderer(lineRenderer);
-        pointsLayer = new GraphicsLayer({ id: "points" });
-        pointsLayer.setRenderer(pointRenderer);
+        (function () {
+            var infoTemplate = new InfoTemplate("", "${*}");
+            linesLayer = new GraphicsLayer({ id: "lines" });
+            linesLayer.setInfoTemplate(infoTemplate);
+            linesLayer.setRenderer(lineRenderer);
+            pointsLayer = new GraphicsLayer({ id: "points" });
+            pointsLayer.setRenderer(pointRenderer);
+            pointsLayer.setInfoTemplate(infoTemplate);
+        }());
+
+
+
         map.addLayers(snapLayers);
 
         map.addLayers([pointsLayer, linesLayer]);
