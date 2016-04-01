@@ -2,6 +2,8 @@
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(["./arcGisRestApiUtils", "./LrsGPParameters"], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        module.exports = factory(require('arcGisRestApiUtils', 'LrsGPParameters'));
     } else {
         // Browser globals
         root.LrsGP = factory(root.arcGisRestApiUtils, root.LrsGPParameters);

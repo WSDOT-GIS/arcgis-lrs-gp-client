@@ -2,6 +2,8 @@
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(["./objectUtils"], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        module.exports = factory(require('objectUtils'));
     } else {
         // Browser globals
         root.arcGisRestApiUtils = factory(root.objectUtils);

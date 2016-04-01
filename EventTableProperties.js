@@ -2,6 +2,8 @@
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define([], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        module.exports = factory();
     } else {
         // Browser globals
         root.EventTableProperties = factory();
@@ -26,7 +28,7 @@
      */
     function EventTableProperties(routeIdField, eventType, fromMeasureField, toMeasureField) {
         var self = this;
-        var _eventType = "POINT"
+        var _eventType = "POINT";
 
         Object.defineProperties(this, {
             routeIdField: {
@@ -90,7 +92,7 @@
             output = [this.routeIdField, this.eventType, this.fromMeasureField].join(" ");
         }
         return output;
-    }
+    };
 
     /**
      * This function will return the string representation of this object
@@ -99,7 +101,7 @@
      */
     EventTableProperties.prototype.toJSON = function () {
         return this.toString();
-    }
+    };
 
     return EventTableProperties;
 
