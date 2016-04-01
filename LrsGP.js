@@ -9,8 +9,9 @@
         root.LrsGP = factory(root.arcGisRestApiUtils, root.LrsGPParameters, root.fetch);
     }
 }(this, function (arcGisRestApiUtils, LrsGPParameters, fetchFunction) {
-
-    fetch = fetchFunction;
+    if (fetchFunction) {
+        fetch = fetchFunction;
+    }
 
     /**
      * A module for calling the LRS geoprocessing service.

@@ -1,13 +1,3 @@
-/// <reference path="../bower_components/jasmine-core/lib/jasmine-core/jasmine.js" />
-/// <reference path="../bower_components/jasmine-core/lib/jasmine-core/jasmine-html.js" />
-/// <reference path="../bower_components/jasmine-core/lib/jasmine-core/boot.js" />
-/// <reference path="../objectUtils.js" />
-/// <reference path="../arcGisRestApiUtils.js" />
-/// <reference path="../EventTableProperties.js" />
-/// <reference path="../LinearUnit.js" />
-/// <reference path="../LrsGPParameters.js" />
-/// <reference path="../LrsGP.js" />
-
 objectUtils = require('../objectUtils.js');
 arcGisRestApiUtils = require('../arcGisRestApiUtils.js');
 EventTableProperties = require('../EventTableProperties.js');
@@ -820,7 +810,7 @@ describe("LrsGP", function () {
                 }).then(function (result) {
                     expect(result.ok).toBe(true);
                     done();
-                })
+                });
             });
 
             runTests();

@@ -8,13 +8,15 @@ Development Environment
 
 LrsGP module
 ------------
-The main module is the `LrsGP` module. These are [UMD] modules that can be used in either AMD or browser globals.
+The main module is the `LrsGP` module. These are [UMD] modules that can be used in [Node], [AMD], or browser globals.
 
-### AMD ###
+### Browser ###
+
+#### AMD ####
 
 See `demo/index.html` for an [AMD] example.
 
-### Browser global scope ###
+#### Browser global scope ####
 
 If loading via HTML `script` tags, the modules must be loaded in this order.
 
@@ -26,9 +28,13 @@ If loading via HTML `script` tags, the modules must be loaded in this order.
 5. `LrsGP.js`
 
 
-Unit Test
----------
-There is a [Jasmine] test in the `test` folder.
+Unit Tests
+----------
+
+There are [Jasmine] tests for both browser and [Node] environments.
+
+* Node tests are in the `spec` folder
+* Browser tests are in the `tests` folder. Test is run by opening the `SpecRunner.html` file.
 
 Demo
 ----
@@ -45,7 +51,9 @@ There is a demo application in the `demo` folder.
 * A geoprocessing service is called to locate the route events.
 * When the GP service has completed, the located feature is drawn (if successful).
 
+[AMD]:https://github.com/amdjs/amdjs-api/wiki
 [Jasmine]:https://jasmine.github.io/
+[Node]:https://nodejs.org/
 [UMD]:https://github.com/umdjs/umd
 [Visual Studio 2015]:https://www.visualstudio.com/
 [Web Extension Pack]:https://visualstudiogallery.msdn.microsoft.com/f3b504c6-0095-42f1-a989-51d5fc2a8459
