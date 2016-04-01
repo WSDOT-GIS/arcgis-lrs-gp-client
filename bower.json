@@ -7,6 +7,7 @@
   "main": "LrsGP.js",
   "moduleType": [
     "amd",
+    "node",
     "globals"
   ],
   "keywords": [
