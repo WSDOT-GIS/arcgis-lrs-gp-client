@@ -5,7 +5,9 @@
 /// <reference path="LrsGP.js" />
 
 /*eslint-env worker*/
-importScripts('bower_components/core.js/client/core.min.js',
+importScripts(
+    'bower_components/core.js/client/core.min.js',
+    'bower_components/fetch/fetch.js',
     'objectUtils.js',
     'arcGisRestApiUtils.js',
     'LinearUnit.js',

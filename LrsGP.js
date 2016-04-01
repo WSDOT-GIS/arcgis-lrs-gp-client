@@ -29,22 +29,22 @@
      */
     function execute(url) {
         return new Promise(function (resolve, reject) {
-            var request = new XMLHttpRequest();
-            request.open("get", url);
-            request.onloadend = function () {
-                if (this.status !== 200) {
-                    reject({ status: this.status, statusText: this.statusText });
-                    return;
-                }
-
-                var response = JSON.parse(this.response);
-                if (response.error) {
-                    reject(response);
+            fetch(url).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (j) {
+                        if (j.error) {
+                            reject(j.error);
+                        } else {
+                            resolve(j.results[0].value);
+                        }
+                    });
                 } else {
-                    resolve(response.results[0].value);
+                    reject({
+                        status: response.status,
+                        statusText: response.statusText
+                    });
                 }
-            };
-            request.send();
+            });
         });
     }
 
