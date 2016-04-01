@@ -26,5 +26,6 @@
   "homepage": "https://github.com/WSDOT-GIS/arcgis-lrs-gp-client#readme",
   "dependencies": {
     "node-fetch": "^1.4.1"
-  }
+  },
+  "private": true
 }
