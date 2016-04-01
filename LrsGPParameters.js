@@ -6,7 +6,7 @@
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like environments that support module.exports,
         // like Node.
-        module.exports = factory(require('LinearUnit', 'objectUtils'));
+        module.exports = factory(require('./LinearUnit.js'), require('./objectUtils.js'));
     } else {
         // Browser globals
         root.LrsGPParameters = factory(root.LinearUnit, root.objectUtils);

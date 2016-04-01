@@ -3,7 +3,7 @@
         // AMD. Register as an anonymous module.
         define(["./objectUtils"], factory);
     } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory(require('objectUtils'));
+        module.exports = factory(require('./objectUtils.js'));
     } else {
         // Browser globals
         root.arcGisRestApiUtils = factory(root.objectUtils);

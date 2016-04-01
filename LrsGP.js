@@ -3,12 +3,15 @@
         // AMD. Register as an anonymous module.
         define(["./arcGisRestApiUtils", "./LrsGPParameters"], factory);
     } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory(require('arcGisRestApiUtils', 'LrsGPParameters'));
+        module.exports = factory(require('./arcGisRestApiUtils.js'), require('./LrsGPParameters.js'), require('node-fetch'));
     } else {
         // Browser globals
-        root.LrsGP = factory(root.arcGisRestApiUtils, root.LrsGPParameters);
+        root.LrsGP = factory(root.arcGisRestApiUtils, root.LrsGPParameters, root.fetch);
     }
-}(this, function (arcGisRestApiUtils, LrsGPParameters) {
+}(this, function (arcGisRestApiUtils, LrsGPParameters, fetchFunction) {
+
+    fetch = fetchFunction;
+
     /**
      * A module for calling the LRS geoprocessing service.
      * @module LrsGP

@@ -1,0 +1,30 @@
+{
+  "name": "arcgis-lrs-gp-client",
+  "version": "1.0.0",
+  "description": "Client library for accessing WSDOT Linear Referencing ArcGIS Geoprocessing services",
+  "main": "LrsGP.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WSDOT-GIS/arcgis-lrs-gp-client.git"
+  },
+  "keywords": [
+    "LRS",
+    "WSDOT",
+    "geoprocessing"
+  ],
+  "author": "WSDOT-GIS",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/WSDOT-GIS/arcgis-lrs-gp-client/issues"
+  },
+  "homepage": "https://github.com/WSDOT-GIS/arcgis-lrs-gp-client#readme",
+  "dependencies": {
+    "node-fetch": "^1.4.1"
+  }
+}

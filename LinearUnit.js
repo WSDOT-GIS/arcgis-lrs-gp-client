@@ -3,7 +3,7 @@
         // AMD. Register as an anonymous module.
         define([], factory);
     } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory(require());
+        module.exports = factory();
     } else {
         // Browser globals
         root.LinearUnit = factory();
