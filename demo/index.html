@@ -26,6 +26,10 @@
             <button type="button" id="addPointButton" value="1"><span class="fa fa-circle"></span><span class="title">Locate point on route</span></button>
             <button type="button" id="addLineButton" value="2"><span class="fa fa-pencil"></span><span class="title">Locate route segment</span></button>
         </div>
+        <div id="routeRadioButtons">
+            <label><input type="radio" name="routesLayer" value="Wapr" checked="checked" />WAPR</label>
+            <label><input type="radio" name="routesLayer" value="WaprFtTb" />WAPR w/ FT &amp; Proposed</label>
+        </div>
         <progress id="updatingProgress">Updating map...</progress>
     </div>
     <!-- Define the route selection dialog. -->

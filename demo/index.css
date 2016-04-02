@@ -1,4 +1,4 @@
-﻿html, body, #map, .map.container {
+html, body, #map, .map.container {
     padding:0;
     margin:0;
     height:100%;
@@ -41,12 +41,29 @@ progress {
     z-index: 1;
 }
 
-.map[data-updating] button {
-    cursor: wait;
+.map[data-updating] button, .out-of-range #routeRadioButtons {
     pointer-events: none;
     color: lightgray;
 }
 
+.map[data-updating] button {
+    cursor: wait;
+}
+
+.out-of-range #routeRadioButtons {
+    cursor: not-allowed;
+}
+
 #toolbar button > .title {
     display: none;
+}
+
+#routeRadioButtons {
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    padding: 0.3em 0.7em;
+    border-radius: 3px 0 0 3px;
 }

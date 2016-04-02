@@ -170,6 +170,30 @@
         itemData: webmapData
     }, "map").then(function (response) {
         var map = response.map;
+
+
+        // TODO: programatically create radio buttons from layers in data.json.
+
+        // Setup route layer radio buttons.
+        (function (radioButtons) {
+            function toggleRouteLayer() {
+                radioButtons.forEach(function (rb) {
+                    var layer = map.getLayer(rb.value);
+                    console.debug({
+                        radioButton: rb,
+                        layer: layer
+                    });
+                    layer.visible = rb.checked;
+                });
+            }
+
+            // Attach the event handler.
+            radioButtons.forEach(function (rb) {
+                rb.addEventListener("click", toggleRouteLayer);
+            });
+        }(Array.from(document.getElementById("routeRadioButtons").querySelectorAll("input[type=radio]"))));
+
+
         anySnapLayersVisibleAtCurrentScale();
         map.on("extent-change", anySnapLayersVisibleAtCurrentScale);
 
