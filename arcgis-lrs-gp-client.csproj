@@ -70,6 +70,9 @@
     <Content Include="bower_components\jasmine-core\lib\jasmine-core\jasmine-html.js" />
     <Content Include="bower_components\jasmine-core\lib\jasmine-core\jasmine.css" />
     <Content Include="bower_components\jasmine-core\lib\jasmine-core\jasmine.js" />
+    <Content Include="bower_components\proj4\dist\proj4-src.js" />
+    <Content Include="bower_components\proj4\dist\proj4.js" />
+    <Content Include="clientProjection.js" />
     <Content Include="demo\index.css" />
     <Content Include="demo\index.html" />
     <Content Include="demo\index.js" />

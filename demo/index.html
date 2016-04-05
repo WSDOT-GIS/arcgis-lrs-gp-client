@@ -46,19 +46,28 @@
         </form>
     </dialog><!-- /.modal -->
     <script>
-        var dojoConfig = {
-            async: true,
-            paths: {
-                LrsGP: location.href.replace(/demo.+$/i, "")
-            },
-            packages: [
-                {
-                    name: "LrsGP",
-                    location: "LrsGP",
-                    main: "LrsGP"
-                }
-            ]
-        };
+        (function (root) {
+            var dojoConfig = {
+                async: true,
+                paths: {
+                    LrsGP: root,
+                    proj4: root + "/bower_components/proj4/dist"
+                },
+                packages: [
+                    {
+                        name: "LrsGP",
+                        location: "LrsGP",
+                        main: "LrsGP"
+                    },
+                    {
+                        name: "proj4",
+                        location: "proj4",
+                        main: "proj4-src"
+                    }
+                ]
+            };
+            window.dojoConfig = dojoConfig;
+        }(location.href.replace(/demo.+$/i, "")));
     </script>
     <script src="../bower_components/core.js/client/core.min.js"></script><!-- Polyfill for brower features. -->
     <script src="../bower_components/fetch/fetch.js"></script>

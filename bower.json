@@ -31,7 +31,8 @@
   "devDependencies": {
     "jasmine-core": "^2.4.1",
     "dialog-polyfill": "^0.4.3",
-    "fetch": "^0.11.0"
+    "fetch": "^0.11.0",
+    "proj4": "^2.3.14"
   },
   "dependencies": {
     "core.js": "~2.2.0"

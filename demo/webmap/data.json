@@ -1,9 +1,9 @@
 ﻿{
   "operationalLayers": [
     {
-      "id": "BridgeVerticalClearances_1458",
+      "id": "BridgeVerticalClearances_0",
       "layerType": "ArcGISFeatureLayer",
-      "url": "http://www.wsdot.wa.gov/geosvcs/ArcGIS/rest/services/Bridge/BridgeVerticalClearances/MapServer/0",
+      "url": "http://data.wsdot.wa.gov/ArcGIS/rest/services/Bridge/BridgeVerticalClearances/MapServer/0",
       "visibility": false,
       "opacity": 1,
       "mode": 1,
@@ -11,9 +11,9 @@
       "disablePopup": true
     },
     {
-      "id": "BridgeVerticalClearances_1114",
+      "id": "BridgeVerticalClearances_1",
       "layerType": "ArcGISFeatureLayer",
-      "url": "http://www.wsdot.wa.gov/geosvcs/ArcGIS/rest/services/Bridge/BridgeVerticalClearances/MapServer/1",
+      "url": "http://data.wsdot.wa.gov/ArcGIS/rest/services/Bridge/BridgeVerticalClearances/MapServer/1",
       "visibility": false,
       "opacity": 1,
       "mode": 1,

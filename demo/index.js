@@ -16,6 +16,7 @@
     "esri/toolbars/draw",
     "LrsGP/arcGisRestApiUtils",
     "LrsGP/LrsGPParameters",
+    "LrsGP/clientProjection",
     "dojo/text!./webmap/data.json",
     "dojo/text!./webmap/description.json"
 ], function (
@@ -36,6 +37,7 @@
     Draw,
     arcGisRestApiUtils,
     LrsGPParameters,
+    clientProjection,
     webmapData,
     webmapDesc
 ) {
@@ -309,10 +311,10 @@
                                 Input_Features: arcGisRestApiUtils.createFeatureSet(tempPointGraphics.map(function (g) {
                                     return g.geometry;
                                 })),
-                                Search_Radius: { distance: 50, units: "esriFeet" },
                                 // By default, the features will be returned as 2927.
                                 // Specify that they should be returned in the map's spatial reference instead.
-                                "env:outSR": 3857
+                                ////"env:outSR": 3857,
+                                Search_Radius: { distance: 50, units: "esriFeet" }
                             });
                             var worker = new Worker("../LrsGPWorker.js");
                             worker.onmessage = function (e) {
@@ -337,10 +339,12 @@
                     var gpComplete = function (e) {
                         var layer;
                         console.debug("GP Message FeatureSet", e);
-                        var resultGraphic;
+                        var resultGraphic, oldResultGraphic;
                         if (e.length === 1) {
                             resultGraphic = new Graphic(e[0]);
-                            resultGraphic.geometry.setSpatialReference(map.spatialReference);
+                            oldResultGraphic = resultGraphic;
+                            resultGraphic = clientProjection.projectGraphicStatePlaneToMap(resultGraphic);
+                            //resultGraphic.geometry.setSpatialReference(map.spatialReference);
                             layer = resultGraphic.geometry.paths ? linesLayer : pointsLayer;
                             console.log("result graphic", resultGraphic);
                             if (layer === pointsLayer) {
