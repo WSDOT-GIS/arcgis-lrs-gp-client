@@ -1,5 +1,4 @@
 {
-  "name": "WsdotLrsGP",
   "authors": [
     "WSDOT-GIS"
   ],
@@ -27,14 +26,14 @@
     "spec",
     "demo",
     "*.sln",
-    "*.csproj"
+    "*.csproj",
+    "*.hbs",
+    "externals.js"
   ],
   "devDependencies": {
     "jasmine-core": "^2.4.1",
     "dialog-polyfill": "^0.4.3",
-    "fetch": "^0.11.0"
-  },
-  "dependencies": {
+    "fetch": "^0.11.0",
     "core.js": "~2.2.0"
   }
 }
