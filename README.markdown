@@ -117,7 +117,7 @@ A module that defines event table properties.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [routeIdField] | <code>string</code> |  | route ID field. |
-| [eventType] | <code>string</code> | <code>&quot;\&quot;POINT\&quot;&quot;</code> | Valid values are "POINT" and "LINE". |
+| [eventType] | <code>string</code> | <code>&quot;POINT&quot;</code> | Valid values are "POINT" and "LINE". |
 | [fromMeasureField] | <code>string</code> |  | from measure field. Defaults to "MEAS" if event type is "POINT", "FMEAS" if event type is "LINE". |
 | [toMeasureField] | <code>string</code> |  | to measure field. Defaults to null if event type is "POINT", "TMEAS" if event type is "LINE". |
 
@@ -197,7 +197,7 @@ A module for calling the LRS geoprocessing service.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [distance] | <code>number</code> | <code>0</code> | The numeric distance. |
-| [units] | <code>string</code> | <code>&quot;\&quot;esriFeet\&quot;&quot;</code> | The linear unit name. |
+| [units] | <code>string</code> | <code>&quot;esriFeet&quot;</code> | The linear unit name. |
 
 <a name="module_LinearUnit--LinearUnit.UNIT_VALUES"></a>
 
@@ -276,8 +276,8 @@ A module for calling the LRS geoprocessing service.
 | options | <code>Object</code> |  | Constructor options. |
 | options.url | <code>string</code> |  | The URL of the linear referencing GP service. |
 | [options.async] | <code>Boolean</code> | <code>false</code> | Specifies that the GP service is asynchronous. |
-| [options.pointTaskName] | <code>string</code> | <code>&quot;\&quot;Points to Route Events\&quot;&quot;</code> | Name of the task that converts points to route events. |
-| [options.linesTaskName] | <code>string</code> | <code>&quot;\&quot;Points to Route Segments\&quot;&quot;</code> | Name of the task that converts polylines to route events. |
+| [options.pointTaskName] | <code>string</code> | <code>&quot;Points to Route Events&quot;</code> | Name of the task that converts points to route events. |
+| [options.linesTaskName] | <code>string</code> | <code>&quot;Points to Route Segments&quot;</code> | Name of the task that converts polylines to route events. |
 
 **Example**  
 ```js
