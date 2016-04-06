@@ -75,7 +75,7 @@
     <Content Include="demo\index.js" />
     <Content Include="EventTableProperties.js" />
     <Content Include="LrsGPWorker.js" />
-    <Content Include="jsdoc.config.json" />
+    <None Include="readme.hbs" />
     <None Include="README.markdown" />
     <Content Include="spec\LrsGPSpec.js" />
     <Content Include="tests\SpecRunner.html" />

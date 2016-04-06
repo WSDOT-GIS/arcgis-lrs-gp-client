@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jasmine",
-    "docs": "jsdoc2md ./*.js > api.md"
+    "docs": "jsdoc2md ./*.js --template readme.hbs > README.markdown"
   },
   "repository": {
     "type": "git",
