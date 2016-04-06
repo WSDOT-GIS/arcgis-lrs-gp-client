@@ -7,7 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "docs": "jsdoc2md ./*.js > api.md"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,8 @@
   "dependencies": {
     "node-fetch": "^1.4.1"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "jsdoc-to-markdown": "^1.3.3"
+  }
 }
