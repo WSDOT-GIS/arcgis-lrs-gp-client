@@ -373,7 +373,7 @@ ArcGIS REST API geometry definitions.
 ArcGIS REST API spatial reference
 
 **Kind**: global external  
-**See**: [Geometry objects](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/)  
+**See**: [Geometry objects: Spatial Reference](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/#GUID-DFF0E738-5A42-40BC-A811-ACCB5814BABC)  
 
 [AMD]:https://github.com/amdjs/amdjs-api/wiki
 [Jasmine]:https://jasmine.github.io/

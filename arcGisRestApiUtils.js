@@ -30,7 +30,7 @@
     /**
      * ArcGIS REST API spatial reference
      * @external SpatialReference
-     * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/|Geometry objects}
+     * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/#GUID-DFF0E738-5A42-40BC-A811-ACCB5814BABC|Geometry objects: Spatial Reference}
      */
 
     /**
