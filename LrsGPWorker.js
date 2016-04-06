@@ -4,6 +4,12 @@
 /// <reference path="LrsGPParameters.js" />
 /// <reference path="LrsGP.js" />
 
+/**
+ * For use with a Web Worker to runs a {@link module:LrsGP} process on a separate thread.
+ * @module LrsGPWorker
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers|Using web workers}
+ */
+
 /*eslint-env worker*/
 importScripts(
     'bower_components/core.js/client/core.min.js',
