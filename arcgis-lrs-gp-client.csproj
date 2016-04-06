@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="externals.js" />
     <Content Include="bower.json" />
     <Content Include="bower_components\core.js\client\core.js" />
     <Content Include="bower_components\core.js\client\core.min.js" />

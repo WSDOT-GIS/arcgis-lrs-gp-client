@@ -19,16 +19,6 @@
      */
 
     /**
-     * @external GPResult
-     * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/GP_Result/02r3000000q7000000/|GP Result}
-     */
-
-    /**
-     * @external FeatureSet
-     * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/FeatureSet_object/02r3000002mn000000/|FeatureSet object}
-     */
-
-    /**
      * Executes a synchronous GP tool.
      * @param {string} url - The URL to execute the GP tool.
      * @returns {Promise.<external:FeatureSet>} A promise with the results of the GP tool.
