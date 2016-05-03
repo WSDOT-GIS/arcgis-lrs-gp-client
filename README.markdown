@@ -66,6 +66,16 @@ API Reference
 <dt><a href="#module_LinearUnit">LinearUnit</a></dt>
 <dd><p>A module for calling the LRS geoprocessing service.</p>
 </dd>
+<dt><a href="#module_RouteDraw">RouteDraw</a></dt>
+<dd><p>Extension of <a href="#external_Draw">Draw</a></p>
+</dd>
+</dl>
+
+## Classes
+
+<dl>
+<dt><a href="#RouteDraw">RouteDraw</a></dt>
+<dd></dd>
 </dl>
 
 ## External
@@ -82,6 +92,12 @@ API Reference
 </dd>
 <dt><a href="#external_GPResult">GPResult</a></dt>
 <dd><p>Geoprocessing result.</p>
+</dd>
+<dt><a href="#external_Draw">Draw</a></dt>
+<dd><p>Draw toolbar</p>
+</dd>
+<dt><a href="#external_GraphicsLayer">GraphicsLayer</a></dt>
+<dd><p>Graphics Layer</p>
 </dd>
 </dl>
 
@@ -268,6 +284,48 @@ A number greater than or equal to zero.
 
 #### LinearUnit~units : <code>string</code>
 **Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
+<a name="module_RouteDraw"></a>
+
+## RouteDraw
+Extension of [Draw](#external_Draw)
+
+
+* [RouteDraw](#module_RouteDraw)
+    * [~pointsLayer](#module_RouteDraw..pointsLayer) : <code>[GraphicsLayer](#external_GraphicsLayer)</code>
+    * [~querySnapLayers(geometry)](#module_RouteDraw..querySnapLayers) ⇒ <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code>
+
+<a name="module_RouteDraw..pointsLayer"></a>
+
+### RouteDraw~pointsLayer : <code>[GraphicsLayer](#external_GraphicsLayer)</code>
+Point graphics layer.
+
+**Kind**: inner property of <code>[RouteDraw](#module_RouteDraw)</code>  
+<a name="module_RouteDraw..querySnapLayers"></a>
+
+### RouteDraw~querySnapLayers(geometry) ⇒ <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code>
+Queries all of the layers that are used for snapping for the specified geometry.
+
+**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>  
+**Returns**: <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code> - - The results of multiple feature layer queries.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| geometry | <code>esri/geometry/Geometry</code> | A geometry that the user has drawn. This will be in the same SR as the map. |
+
+<a name="RouteDraw"></a>
+
+## RouteDraw
+**Kind**: global class  
+<a name="new_RouteDraw_new"></a>
+
+### new constructor(map, options, routeLayers)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| map | <code>external:esri/Map</code> | Map object. |
+| options | <code>Object</code> | Options object. |
+| routeLayers | <code>[Array.&lt;GraphicsLayer&gt;](#external_GraphicsLayer)</code> &#124; <code>Array.&lt;string&gt;</code> | An array of either graphics layers or their IDs. |
+
 <a name="external_FeatureSet"></a>
 
 ## FeatureSet
@@ -296,6 +354,20 @@ Geoprocessing result.
 
 **Kind**: global external  
 **See**: [GP Result](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/GP_Result/02r3000000q7000000/)  
+<a name="external_Draw"></a>
+
+## Draw
+Draw toolbar
+
+**Kind**: global external  
+**See**: [Draw](https://developers.arcgis.com/javascript/3/jsapi/draw-amd.html)  
+<a name="external_GraphicsLayer"></a>
+
+## GraphicsLayer
+Graphics Layer
+
+**Kind**: global external  
+**See**: [GraphicsLayer](https://developers.arcgis.com/javascript/3/jsapi/graphicslayer-amd.html)  
 
 [AMD]:https://github.com/amdjs/amdjs-api/wiki
 [Jasmine]:https://jasmine.github.io/

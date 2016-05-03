@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jasmine",
-    "docs": "jsdoc2md LrsGP.js LrsGPParameters.js arcGisRestApiUtils.js LinearUnit.js objectUtils.js externals.js --template readme.hbs > README.markdown"
+    "prepublish": "jsdoc2md LrsGP.js LrsGPParameters.js arcGisRestApiUtils.js LinearUnit.js objectUtils.js RouteDraw.js externals.js  --template readme.hbs > README.markdown"
   },
   "repository": {
     "type": "git",

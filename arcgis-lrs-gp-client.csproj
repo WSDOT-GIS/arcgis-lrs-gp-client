@@ -78,6 +78,7 @@
     <Content Include="LrsGPWorker.js" />
     <None Include="readme.hbs" />
     <None Include="README.markdown" />
+    <Content Include="RouteDraw.js" />
     <Content Include="spec\LrsGPSpec.js" />
     <Content Include="tests\SpecRunner.html" />
     <Content Include="tests\spec\LrsGPSpec.js" />

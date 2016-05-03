@@ -21,3 +21,15 @@
  * @external GPResult
  * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/GP_Result/02r3000000q7000000/|GP Result}
  */
+
+/**
+ * Draw toolbar
+ * @external Draw
+ * @see {@link https://developers.arcgis.com/javascript/3/jsapi/draw-amd.html Draw}
+ */
+
+/**
+ * Graphics Layer
+ * @external GraphicsLayer
+ * @see {@link https://developers.arcgis.com/javascript/3/jsapi/graphicslayer-amd.html GraphicsLayer}
+ */
