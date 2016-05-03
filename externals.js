@@ -17,11 +17,7 @@
  */
 
 /**
+ * Geoprocessing result.
  * @external GPResult
  * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/GP_Result/02r3000000q7000000/|GP Result}
- */
-
-/**
- * @external FeatureSet
- * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/FeatureSet_object/02r3000002mn000000/|FeatureSet object}
  */

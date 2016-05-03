@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jasmine",
-    "docs": "jsdoc2md ./*.js --template readme.hbs > README.markdown"
+    "docs": "jsdoc2md LrsGP.js LrsGPParameters.js arcGisRestApiUtils.js LinearUnit.js objectUtils.js externals.js --template readme.hbs > README.markdown"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,6 @@
   },
   "private": true,
   "devDependencies": {
-    "jsdoc-to-markdown": "^1.3.3"
+    "jsdoc-to-markdown": "~1.3.6"
   }
 }

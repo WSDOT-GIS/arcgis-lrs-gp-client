@@ -57,20 +57,14 @@ API Reference
 ## Modules
 
 <dl>
-<dt><a href="#module_EventTableProperties">EventTableProperties</a></dt>
-<dd><p>A module that defines event table properties.</p>
-</dd>
-<dt><a href="#module_LinearUnit">LinearUnit</a></dt>
-<dd><p>A module for calling the LRS geoprocessing service.</p>
-</dd>
 <dt><a href="#module_LrsGP">LrsGP</a></dt>
 <dd><p>A module for calling the LRS geoprocessing service.</p>
 </dd>
 <dt><a href="#module_LrsGPParameters">LrsGPParameters</a></dt>
 <dd><p>A module defining parameters object for the LRS geoprocessing service.</p>
 </dd>
-<dt><a href="#module_LrsGPWorker">LrsGPWorker</a></dt>
-<dd><p>For use with a Web Worker to runs a <a href="#module_LrsGP">LrsGP</a> process on a separate thread.</p>
+<dt><a href="#module_LinearUnit">LinearUnit</a></dt>
+<dd><p>A module for calling the LRS geoprocessing service.</p>
 </dd>
 </dl>
 
@@ -86,162 +80,11 @@ API Reference
 <dt><a href="#external_SpatialReference">SpatialReference</a></dt>
 <dd><p>ArcGIS REST API spatial reference</p>
 </dd>
+<dt><a href="#external_GPResult">GPResult</a></dt>
+<dd><p>Geoprocessing result.</p>
+</dd>
 </dl>
 
-<a name="module_EventTableProperties"></a>
-
-## EventTableProperties
-A module that defines event table properties.
-
-
-* [EventTableProperties](#module_EventTableProperties)
-    * [EventTableProperties](#exp_module_EventTableProperties--EventTableProperties) ⏏
-        * [new EventTableProperties([routeIdField], [eventType], [fromMeasureField], [toMeasureField])](#new_module_EventTableProperties--EventTableProperties_new)
-        * _instance_
-            * [.toString()](#module_EventTableProperties--EventTableProperties+toString) ⇒ <code>string</code>
-            * [.toJSON()](#module_EventTableProperties--EventTableProperties+toJSON) ⇒ <code>string</code>
-        * _inner_
-            * [~routeIdField](#module_EventTableProperties--EventTableProperties..routeIdField) : <code>string</code>
-            * [~eventType](#module_EventTableProperties--EventTableProperties..eventType) : <code>string</code>
-            * [~fromMeasureField](#module_EventTableProperties--EventTableProperties..fromMeasureField) : <code>string</code>
-            * [~toMeasureField](#module_EventTableProperties--EventTableProperties..toMeasureField) : <code>string</code>
-
-<a name="exp_module_EventTableProperties--EventTableProperties"></a>
-
-### EventTableProperties ⏏
-**Kind**: Exported class  
-<a name="new_module_EventTableProperties--EventTableProperties_new"></a>
-
-#### new EventTableProperties([routeIdField], [eventType], [fromMeasureField], [toMeasureField])
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [routeIdField] | <code>string</code> |  | route ID field. |
-| [eventType] | <code>string</code> | <code>&quot;POINT&quot;</code> | Valid values are "POINT" and "LINE". |
-| [fromMeasureField] | <code>string</code> |  | from measure field. Defaults to "MEAS" if event type is "POINT", "FMEAS" if event type is "LINE". |
-| [toMeasureField] | <code>string</code> |  | to measure field. Defaults to null if event type is "POINT", "TMEAS" if event type is "LINE". |
-
-<a name="module_EventTableProperties--EventTableProperties+toString"></a>
-
-#### eventTableProperties.toString() ⇒ <code>string</code>
-Returns a string representation of the EventTableProperties.
-
-**Kind**: instance method of <code>[EventTableProperties](#exp_module_EventTableProperties--EventTableProperties)</code>  
-**Returns**: <code>string</code> - string representation of EventTableProperties.  
-**Example**  
-```js
-var etp = new EventTableProperties("RID", "POINT", "MEAS");var s = etp.toString(); // s === "RID POINT MEAS"
-```
-<a name="module_EventTableProperties--EventTableProperties+toJSON"></a>
-
-#### eventTableProperties.toJSON() ⇒ <code>string</code>
-This function will return the string representation of this objectwhen serialized to JSON.
-
-**Kind**: instance method of <code>[EventTableProperties](#exp_module_EventTableProperties--EventTableProperties)</code>  
-**Returns**: <code>string</code> - Returns the string representation of the EventTableProperties.  
-**See**: [toString](#module_EventTableProperties--EventTableProperties+toString)  
-<a name="module_EventTableProperties--EventTableProperties..routeIdField"></a>
-
-#### EventTableProperties~routeIdField : <code>string</code>
-The name of the field in the route layer that uniquely identifies a route.
-
-**Kind**: inner property of <code>[EventTableProperties](#exp_module_EventTableProperties--EventTableProperties)</code>  
-<a name="module_EventTableProperties--EventTableProperties..eventType"></a>
-
-#### EventTableProperties~eventType : <code>string</code>
-Valid values are 'POINT' and 'LINE'.
-
-**Kind**: inner property of <code>[EventTableProperties](#exp_module_EventTableProperties--EventTableProperties)</code>  
-<a name="module_EventTableProperties--EventTableProperties..fromMeasureField"></a>
-
-#### EventTableProperties~fromMeasureField : <code>string</code>
-The name of the "from" measure field.
-
-**Kind**: inner property of <code>[EventTableProperties](#exp_module_EventTableProperties--EventTableProperties)</code>  
-<a name="module_EventTableProperties--EventTableProperties..toMeasureField"></a>
-
-#### EventTableProperties~toMeasureField : <code>string</code>
-The name of the "to" measure field. Only used when [eventType](#module_EventTableProperties--EventTableProperties..eventType) is "LINE".
-
-**Kind**: inner property of <code>[EventTableProperties](#exp_module_EventTableProperties--EventTableProperties)</code>  
-<a name="module_LinearUnit"></a>
-
-## LinearUnit
-A module for calling the LRS geoprocessing service.
-
-
-* [LinearUnit](#module_LinearUnit)
-    * [LinearUnit](#exp_module_LinearUnit--LinearUnit) ⏏
-        * [new LinearUnit([distance], [units])](#new_module_LinearUnit--LinearUnit_new)
-        * _static_
-            * [.UNIT_VALUES](#module_LinearUnit--LinearUnit.UNIT_VALUES) : <code>Object.&lt;string, string&gt;</code>
-        * _inner_
-            * [~distance](#module_LinearUnit--LinearUnit..distance) : <code>number</code>
-                * [.set(v)](#module_LinearUnit--LinearUnit..distance.set)
-            * [~units](#module_LinearUnit--LinearUnit..units) : <code>string</code>
-
-<a name="exp_module_LinearUnit--LinearUnit"></a>
-
-### LinearUnit ⏏
-**Kind**: Exported class  
-**See**: [UNIT_VALUES](#module_LinearUnit--LinearUnit.UNIT_VALUES) constants.  
-<a name="new_module_LinearUnit--LinearUnit_new"></a>
-
-#### new LinearUnit([distance], [units])
-**Throws**:
-
-- <code>TypeError</code> Thrown if caller attempts to set distance to a non-number value or units to non-string.
-- <code>Error</code> Thrown if caller attempts to set distance to a number that is less than zero or units to an invalid value.
-
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [distance] | <code>number</code> | <code>0</code> | The numeric distance. |
-| [units] | <code>string</code> | <code>&quot;esriFeet&quot;</code> | The linear unit name. |
-
-<a name="module_LinearUnit--LinearUnit.UNIT_VALUES"></a>
-
-#### LinearUnit.UNIT_VALUES : <code>Object.&lt;string, string&gt;</code>
-List of the valid linear unit types.
-
-**Kind**: static constant of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| FEET | <code>string</code> | "esriFeet" |
-| CENTIMETERS | <code>string</code> | "esriCentimeters" |
-| DECIMAL_DEGREES | <code>string</code> | "esriDecimalDegrees" |
-| DECIMETERS | <code>string</code> | "esriDecimeters" |
-| INCHES | <code>string</code> | "esriInches" |
-| KILOMETERS | <code>string</code> | "esriKilometers" |
-| METERS | <code>string</code> | "esriMeters" |
-| MILES | <code>string</code> | "esriMiles" |
-| MILLIMETERS | <code>string</code> | "esriMillimeters" |
-| NAUTICAL_MILES | <code>string</code> | "esriNauticalMiles" |
-| POINTS | <code>string</code> | "esriPoints" |
-| UNKNOWN | <code>string</code> | "esriUnknown" |
-| YARDS | <code>string</code> | "esriYards" |
-
-<a name="module_LinearUnit--LinearUnit..distance"></a>
-
-#### LinearUnit~distance : <code>number</code>
-A number greater than or equal to zero.
-
-**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
-<a name="module_LinearUnit--LinearUnit..distance.set"></a>
-
-##### distance.set(v)
-**Kind**: static method of <code>[distance](#module_LinearUnit--LinearUnit..distance)</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| v | <code>number</code> | A number greater than zero. |
-
-<a name="module_LinearUnit--LinearUnit..units"></a>
-
-#### LinearUnit~units : <code>string</code>
-**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
 <a name="module_LrsGP"></a>
 
 ## LrsGP
@@ -276,8 +119,8 @@ A module for calling the LRS geoprocessing service.
 | options | <code>Object</code> |  | Constructor options. |
 | options.url | <code>string</code> |  | The URL of the linear referencing GP service. |
 | [options.async] | <code>Boolean</code> | <code>false</code> | Specifies that the GP service is asynchronous. |
-| [options.pointTaskName] | <code>string</code> | <code>&quot;Points to Route Events&quot;</code> | Name of the task that converts points to route events. |
-| [options.linesTaskName] | <code>string</code> | <code>&quot;Points to Route Segments&quot;</code> | Name of the task that converts polylines to route events. |
+| [options.pointTaskName] | <code>string</code> | <code>&quot;\&quot;Points to Route Events\&quot;&quot;</code> | Name of the task that converts points to route events. |
+| [options.linesTaskName] | <code>string</code> | <code>&quot;\&quot;Points to Route Segments\&quot;&quot;</code> | Name of the task that converts polylines to route events. |
 
 **Example**  
 ```js
@@ -347,12 +190,84 @@ A module defining parameters object for the LRS geoprocessing service.
 - [Locate Features Along Routes](http://desktop.arcgis.com/en/arcmap/latest/tools/linear-ref-toolbox/locate-features-along-routes.htm)
 - [Make Route Event Layer](http://desktop.arcgis.com/en/arcmap/latest/tools/linear-ref-toolbox/make-route-event-layer.htm)
 
-<a name="module_LrsGPWorker"></a>
+<a name="module_LinearUnit"></a>
 
-## LrsGPWorker
-For use with a Web Worker to runs a [LrsGP](#module_LrsGP) process on a separate thread.
+## LinearUnit
+A module for calling the LRS geoprocessing service.
 
-**See**: [Using web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)  
+
+* [LinearUnit](#module_LinearUnit)
+    * [LinearUnit](#exp_module_LinearUnit--LinearUnit) ⏏
+        * [new LinearUnit([distance], [units])](#new_module_LinearUnit--LinearUnit_new)
+        * _static_
+            * [.UNIT_VALUES](#module_LinearUnit--LinearUnit.UNIT_VALUES) : <code>Object.&lt;string, string&gt;</code>
+        * _inner_
+            * [~distance](#module_LinearUnit--LinearUnit..distance) : <code>number</code>
+                * [.set(v)](#module_LinearUnit--LinearUnit..distance.set)
+            * [~units](#module_LinearUnit--LinearUnit..units) : <code>string</code>
+
+<a name="exp_module_LinearUnit--LinearUnit"></a>
+
+### LinearUnit ⏏
+**Kind**: Exported class  
+**See**: [UNIT_VALUES](#module_LinearUnit--LinearUnit.UNIT_VALUES) constants.  
+<a name="new_module_LinearUnit--LinearUnit_new"></a>
+
+#### new LinearUnit([distance], [units])
+**Throws**:
+
+- <code>TypeError</code> Thrown if caller attempts to set distance to a non-number value or units to non-string.
+- <code>Error</code> Thrown if caller attempts to set distance to a number that is less than zero or units to an invalid value.
+
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [distance] | <code>number</code> | <code>0</code> | The numeric distance. |
+| [units] | <code>string</code> | <code>&quot;\&quot;esriFeet\&quot;&quot;</code> | The linear unit name. |
+
+<a name="module_LinearUnit--LinearUnit.UNIT_VALUES"></a>
+
+#### LinearUnit.UNIT_VALUES : <code>Object.&lt;string, string&gt;</code>
+List of the valid linear unit types.
+
+**Kind**: static constant of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| FEET | <code>string</code> | "esriFeet" |
+| CENTIMETERS | <code>string</code> | "esriCentimeters" |
+| DECIMAL_DEGREES | <code>string</code> | "esriDecimalDegrees" |
+| DECIMETERS | <code>string</code> | "esriDecimeters" |
+| INCHES | <code>string</code> | "esriInches" |
+| KILOMETERS | <code>string</code> | "esriKilometers" |
+| METERS | <code>string</code> | "esriMeters" |
+| MILES | <code>string</code> | "esriMiles" |
+| MILLIMETERS | <code>string</code> | "esriMillimeters" |
+| NAUTICAL_MILES | <code>string</code> | "esriNauticalMiles" |
+| POINTS | <code>string</code> | "esriPoints" |
+| UNKNOWN | <code>string</code> | "esriUnknown" |
+| YARDS | <code>string</code> | "esriYards" |
+
+<a name="module_LinearUnit--LinearUnit..distance"></a>
+
+#### LinearUnit~distance : <code>number</code>
+A number greater than or equal to zero.
+
+**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
+<a name="module_LinearUnit--LinearUnit..distance.set"></a>
+
+##### distance.set(v)
+**Kind**: static method of <code>[distance](#module_LinearUnit--LinearUnit..distance)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| v | <code>number</code> | A number greater than zero. |
+
+<a name="module_LinearUnit--LinearUnit..units"></a>
+
+#### LinearUnit~units : <code>string</code>
+**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
 <a name="external_FeatureSet"></a>
 
 ## FeatureSet
@@ -374,6 +289,13 @@ ArcGIS REST API spatial reference
 
 **Kind**: global external  
 **See**: [Geometry objects: Spatial Reference](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/#GUID-DFF0E738-5A42-40BC-A811-ACCB5814BABC)  
+<a name="external_GPResult"></a>
+
+## GPResult
+Geoprocessing result.
+
+**Kind**: global external  
+**See**: [GP Result](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/GP_Result/02r3000000q7000000/)  
 
 [AMD]:https://github.com/amdjs/amdjs-api/wiki
 [Jasmine]:https://jasmine.github.io/
