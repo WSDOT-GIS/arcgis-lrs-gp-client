@@ -57,6 +57,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="demo\v4\index.css" />
+    <Content Include="demo\v4\index.html" />
+    <Content Include="demo\v4\index.js" />
     <Content Include="externals.js" />
     <Content Include="bower.json" />
     <Content Include="bower_components\core.js\client\core.js" />
@@ -76,6 +79,8 @@
     <Content Include="demo\v3\index.js" />
     <Content Include="EventTableProperties.js" />
     <Content Include="LrsGPWorker.js" />
+    <Content Include="demo\webmap\data.json" />
+    <Content Include="demo\webmap\description.json" />
     <None Include="readme.hbs" />
     <None Include="README.markdown" />
     <Content Include="RouteDraw.js" />
@@ -89,10 +94,6 @@
     <Content Include="LrsGP.js" />
     <Content Include="LrsGPParameters.js" />
     <Content Include="objectUtils.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="demo\v3\webmap\data.json" />
-    <Content Include="demo\v3\webmap\description.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="UNLICENSE" />

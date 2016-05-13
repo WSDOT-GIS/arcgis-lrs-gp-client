@@ -16,8 +16,8 @@
     "LrsGP/arcGisRestApiUtils",
     "LrsGP/LrsGPParameters",
     "LrsGP/RouteDraw",
-    "dojo/text!./webmap/data.json",
-    "dojo/text!./webmap/description.json"
+    "dojo/text!../webmap/data.json",
+    "dojo/text!../webmap/description.json"
 ], function (
     all,
     InfoTemplate,
@@ -225,7 +225,7 @@
                         // Specify that they should be returned in the map's spatial reference instead.
                         "env:outSR": 3857
                     });
-                    var worker = new Worker("../LrsGPWorker.js");
+                    var worker = new Worker("../../LrsGPWorker.js");
                     worker.onmessage = function (e) {
                         var features = e.data.features;
                         // Filter the features so that only the ones that match the "route" parameter are returned.
