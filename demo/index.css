@@ -67,3 +67,7 @@ progress {
     padding: 0.3em 0.7em;
     border-radius: 3px 0 0 3px;
 }
+
+#loadingDialog progress {
+    width: 100%;
+}

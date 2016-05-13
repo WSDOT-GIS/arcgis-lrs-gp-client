@@ -13,7 +13,6 @@
     "esri/symbols/SimpleMarkerSymbol",
     "esri/symbols/SimpleLineSymbol",
     "esri/tasks/query",
-    "esri/toolbars/draw",
     "LrsGP/arcGisRestApiUtils",
     "LrsGP/LrsGPParameters",
     "LrsGP/RouteDraw",
@@ -34,7 +33,6 @@
     SimpleMarkerSymbol,
     SimpleLineSymbol,
     Query,
-    Draw,
     arcGisRestApiUtils,
     LrsGPParameters,
     RouteDraw,
@@ -44,6 +42,7 @@
     "use strict";
 
     var drawToolbar;
+    var loadingDialog;
 
     // The dialog polyfill requires a registration step.
     // Register the dialogs with the polyfill if the browser
@@ -56,6 +55,8 @@
             }
         }());
     }
+
+    loadingDialog = document.getElementById("loadingDialog");
 
     // TODO: Update to production URL once the service has been pushed to production.
     var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
@@ -142,10 +143,6 @@
             function toggleRouteLayer() {
                 radioButtons.forEach(function (rb) {
                     var layer = map.getLayer(rb.value);
-                    console.debug({
-                        radioButton: rb,
-                        layer: layer
-                    });
                     layer.visible = rb.checked;
                 });
             }
@@ -181,16 +178,13 @@
         // TODO: Use different symbols for points the user just drew and
         // ones that have been located along the route using GP tool.
         var pointSymbol = new SimpleMarkerSymbol();
-        pointSymbol.setColor("#00ffff");
+        pointSymbol.setColor("#00ff00");
         var lineSymbol = new SimpleLineSymbol();
         lineSymbol.setWidth(4);
-        lineSymbol.setColor("#00ffff");
+        lineSymbol.setColor("#00ff00");
         var pointRenderer = new SimpleRenderer(pointSymbol);
         var lineRenderer = new SimpleRenderer(lineSymbol);
         var linesLayer, pointsLayer;
-
-        ////var drawToolbar = new Draw(map);
-
 
         (function () {
             var infoTemplate = new InfoTemplate("", "${*}");
@@ -219,7 +213,7 @@
              * @returns {Promise} - A promise. Result feature set from LRS GP service.
              */
             function runGP(pointGraphics, route) {
-
+                loadingDialog.showModal();
                 return new Promise(function (resolve, reject) {
                     // TODO: Route is currently unused. It will be passed to GP tool once it allows filtering the routes that are searched.
                     var gpParams = new LrsGPParameters({
@@ -253,16 +247,13 @@
 
             var gpComplete = function (e) {
                 var layer;
+                loadingDialog.close();
                 console.debug("GP Message FeatureSet", e);
                 var resultGraphic;
                 if (e.length === 1) {
                     resultGraphic = new Graphic(e[0]);
                     resultGraphic.geometry.setSpatialReference(map.spatialReference);
                     layer = resultGraphic.geometry.paths ? linesLayer : pointsLayer;
-                    console.log("result graphic", resultGraphic);
-                    if (layer === pointsLayer) {
-                        pointsLayer.remove(graphic);
-                    }
                     layer.add(resultGraphic);
                 } else if (e.length > 1) {
                     alert("More than one match was found.");
@@ -271,6 +262,7 @@
                 }
             };
             var gpFail = function (err) {
+                loadingDialog.close();
                 console.error("GP Fail", err);
             };
 
@@ -292,69 +284,12 @@
 
         map.addLayers([pointsLayer, linesLayer]);
 
-        ////map.enableSnapping({
-        ////    alwaysSnap: true,
-        ////    layerInfos: snapLayers.map(function (layer) {
-        ////        return {
-        ////            layer: layer,
-        ////            snapToEdge: layer.geometryType === "esriGeometryPolyline" || layer.geometryType === "esriGeometryPolygon",
-        ////            snapToPoint: layer.geometryType === "esriGeometryPoint",
-        ////            snapToVertex: false
-        ////        };
-        ////    })
-        ////});
-
         /**
-         * @typedef {Event} DrawCompleteEvent
-         * @property {Geometry} geometry - geometry
-         * @property {Geometry} geographicGeometry - geometry in WGS84 (only available if map is WGS84 or Web Mercator Aux. Sphere)
-         * @property {Draw} target - The Draw toolbar that generated the event
+         * Activates the drawing toolbar for drawing either points or line segments.
+         * @param {Event} e - button click event.
          */
-
-        /////**
-        //// *
-        //// * @param {DrawCompleteEvent} e - draw event information.
-        //// */
-        ////drawToolbar.on("draw-complete", function (e) {
-        ////    pointCount++;
-
-        ////    var geometry = e.geometry;
-        ////    var graphic = new Graphic(geometry, null, { temp: true });
-        ////    var drawnPoints;
-
-        ////    pointsLayer.add(graphic);
-
-        ////    if (pointCount >= pointLimit) {
-        ////        e.target.deactivate();
-
-        ////        // Get the temp drawn points
-        ////        var pointGraphics = pointsLayer.graphics.filter(function (g) {
-        ////            return g.attributes.temp;
-        ////        });
-
-
-        ////        if (pointGraphics.length > 1) {
-        ////            // Combine the two drawn points into a multipoint.
-
-        ////            geometry = new Multipoint(geometry.spatialReference);
-        ////            pointGraphics.forEach(function (g) {
-        ////                geometry.addPoint(g.geometry);
-        ////                var output = g.geometry;
-        ////                pointsLayer.remove(g);
-        ////            });
-        ////        } // else, there clicked point just drawn will remain the geometry.
-
-        ////        querySnapLayers(geometry, snapLayers.filter(function (layer) {
-        ////            return layer.visible;
-        ////        })).then(function (routeFeatures) {
-
-        ////
-        ////    }
-        ////});
-
         function activateDraw(e) {
             var button = e.currentTarget;
-            console.debug("activateDraw", button);
             if (button.value === "point") {
                 drawToolbar.activatePointDraw();
             } else if (button.value === "line") {
