@@ -71,9 +71,9 @@
     <Content Include="bower_components\jasmine-core\lib\jasmine-core\jasmine-html.js" />
     <Content Include="bower_components\jasmine-core\lib\jasmine-core\jasmine.css" />
     <Content Include="bower_components\jasmine-core\lib\jasmine-core\jasmine.js" />
-    <Content Include="demo\index.css" />
-    <Content Include="demo\index.html" />
-    <Content Include="demo\index.js" />
+    <Content Include="demo\v3\index.css" />
+    <Content Include="demo\v3\index.html" />
+    <Content Include="demo\v3\index.js" />
     <Content Include="EventTableProperties.js" />
     <Content Include="LrsGPWorker.js" />
     <None Include="readme.hbs" />
@@ -91,8 +91,8 @@
     <Content Include="objectUtils.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="demo\webmap\data.json" />
-    <Content Include="demo\webmap\description.json" />
+    <Content Include="demo\v3\webmap\data.json" />
+    <Content Include="demo\v3\webmap\description.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="UNLICENSE" />
