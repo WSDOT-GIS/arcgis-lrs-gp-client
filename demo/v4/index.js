@@ -1,19 +1,23 @@
 require([
     "esri/Map",
+    "esri/Basemap",
     "esri/layers/Layer",
     "esri/layers/FeatureLayer",
     "esri/layers/MapImageLayer",
     "esri/layers/TileLayer",
+    "esri/layers/VectorTileLayer",
     "esri/views/MapView",
     "esri/widgets/Home",
     "esri/widgets/Search",
     "dojo/text!../webmap/data.json"
 ], function (
     EsriMap,
+    Basemap,
     Layer,
     FeatureLayer,
     MapImageLayer,
     TileLayer,
+    VectorTileLayer,
     MapView,
     Home,
     Search,
@@ -24,7 +28,8 @@ require([
     [
         ["ArcGISFeatureLayer", FeatureLayer],
         ["ArcGISTiledMapServiceLayer", TileLayer],
-        ["ArcGISMapServiceLayer", MapImageLayer]
+        ["ArcGISMapServiceLayer", MapImageLayer],
+        ["VectorTileLayer", VectorTileLayer]
     ].forEach(function (kvp) {
         layerTypesMapping.set(kvp[0], kvp[1]);
     });
@@ -47,6 +52,9 @@ require([
             if (v.mode) {
                 delete v.mode;
             }
+            if (v.styleUrl && !v.url) {
+                v.url = v.styleUrl;
+            }
             // Construct the layer object.
             v = new (layerTypesMapping.get(v.layerType))(v);
         }
@@ -54,10 +62,12 @@ require([
     };
 
     var webmapJson = JSON.parse(webmapJson, reviver);
+    webmapJson.baseMap.baseLayers = webmapJson.baseMap.baseMapLayers;
+    delete webmapJson.baseMapLayers;
 
     var map = new EsriMap({
         layers: webmapJson.operationalLayers,
-        basemap: "hybrid"
+        basemap: new Basemap(webmapJson.baseMap)
     });
     var view = new MapView({
         container: "mapView",
