@@ -9,6 +9,22 @@
 </head>
 <body>
     <div id="mapView"></div>
+    <script>
+        var dojoConfig = (function (appRoot, lrsGPRoot) {
+            return {
+                paths: {
+                    "appRoot": appRoot
+                },
+                packages: [
+                    {
+                        name: "LrsGP",
+                        location: lrsGPRoot,
+                        main: "LrsGP"
+                    }
+                ]
+            }
+        }(location.href.replace(/(?:index.html)?$/, ""), location.href.replace(/demo\/v4\/(?:index.html)?$/, "")));
+    </script>
     <script src="//js.arcgis.com/4.0/init.js" integrity="sha384-Hm7PK5GWarPxTv1bhOblRVY3d3gySuI5/kH8otNPOYRccvek/hNQj5ZHCxlMvRZb" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>

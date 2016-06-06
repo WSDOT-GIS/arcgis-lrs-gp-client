@@ -81,6 +81,7 @@
     <Content Include="LrsGPWorker.js" />
     <Content Include="demo\webmap\data.json" />
     <Content Include="demo\webmap\description.json" />
+    <Content Include="demo\v4\ui\DrawButtons.js" />
     <None Include="readme.hbs" />
     <None Include="README.markdown" />
     <Content Include="RouteDraw.js" />
