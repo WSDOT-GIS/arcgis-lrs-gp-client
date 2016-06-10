@@ -1,4 +1,6 @@
-define([], function () {
+define([
+    "esri/core/Collection"
+], function (Collection) {
     function DrawButtons() {
 
         var self = this;
@@ -16,7 +18,7 @@ define([], function () {
         lineButton.innerText = "Line";
         lineButton.value = "line";
         div.appendChild(lineButton);
-        
+
         Object.defineProperties(this, {
             domNode: {
                 value: div
@@ -25,24 +27,26 @@ define([], function () {
                 value: view
             },
             points: {
-                value: []
+                value: new Collection()
             }
         });
 
-        // var drawnPoints = 0;
+        var drawnPointsCount = 0;
         var pointCount = 0;
 
         function triggerDrawStartEvent(e) {
             var button = e.target;
             // drawnPoints = 0;
             pointCount = button.value === "line" ? 2 : 1;
-            points = [];
+            self.points.removeAll();
 
             var evt = new CustomEvent("draw-start", {
                 detail: {
                     geometryType: button.value
                 }
-            })
+            });
+
+            div.dispatchEvent(evt);
         }
 
         [pointButton, lineButton].forEach(function (button) {
