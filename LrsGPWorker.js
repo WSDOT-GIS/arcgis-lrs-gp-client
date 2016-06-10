@@ -1,4 +1,4 @@
-﻿/// <reference path="objectUtils.js" />
+/// <reference path="objectUtils.js" />
 /// <reference path="arcGisRestApiUtils.js" />
 /// <reference path="LinearUnit.js" />
 /// <reference path="LrsGPParameters.js" />

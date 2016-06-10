@@ -1,4 +1,4 @@
-﻿declare type UnitValue =
+declare type UnitValue =
 "esriFeet" |
 "esriCentimeters" |
 "esriDecimalDegrees" |
