@@ -1,14 +1,14 @@
-/// <reference path="../bower_components/jasmine-core/lib/jasmine-core/jasmine.js" />
-/// <reference path="../bower_components/jasmine-core/lib/jasmine-core/jasmine-html.js" />
-/// <reference path="../bower_components/jasmine-core/lib/jasmine-core/boot.js" />
-/// <reference path="../objectUtils.js" />
-/// <reference path="../arcGisRestApiUtils.js" />
-/// <reference path="../EventTableProperties.js" />
-/// <reference path="../LinearUnit.js" />
-/// <reference path="../LrsGPParameters.js" />
-/// <reference path="../LrsGP.js" />
+/// <reference path="../../bower_components/jasmine-core/lib/jasmine-core/jasmine.js" />
+/// <reference path="../../bower_components/jasmine-core/lib/jasmine-core/jasmine-html.js" />
+/// <reference path="../../bower_components/jasmine-core/lib/jasmine-core/boot.js" />
+/// <reference path="../../objectUtils.js" />
+/// <reference path="../../arcGisRestApiUtils.js" />
+/// <reference path="../../EventTableProperties.js" />
+/// <reference path="../../LinearUnit.js" />
+/// <reference path="../../LrsGPParameters.js" />
+/// <reference path="../../LrsGP.js" />
 
-var serviceUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer";
+var serviceUrl = "http://data.wsdot.wa.gov/arcgis/rest/services/Shared/LinearReferencing/GPServer";
 
 describe("objectUtils", function () {
     // Create test object.

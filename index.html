@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo index</title>
+    <style>
+        .unfinished {
+            pointer-events: none;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        .unfinished:after {
+            content: ' (not finished)'
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="demo/v3">ArcGIS API 3.X</a></li>
+        <li><a href="demo/v4" class="unfinished" aria-disabled="true">ArcGIS API 4.X</a></li>
+    </ul>
+</body>
+</html>

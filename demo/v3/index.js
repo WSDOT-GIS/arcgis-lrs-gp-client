@@ -59,7 +59,7 @@
     loadingDialog = document.getElementById("loadingDialog");
 
     // TODO: Update to production URL once the service has been pushed to production.
-    var lrsGPUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
+    var lrsGPUrl = "http://data.wsdot.wa.gov/arcgis/rest/services/Shared/LinearReferencing/GPServer/";
 
     /**
      * Shows the route select dialog.

@@ -8,12 +8,19 @@
   },
   "scripts": {
     "test": "jasmine",
-    "prepublish": "jsdoc2md LrsGP.js LrsGPParameters.js arcGisRestApiUtils.js LinearUnit.js objectUtils.js RouteDraw.js externals.js  --template readme.hbs > README.markdown"
+    "prepublish": "bower install",
+    "doc": "jsdoc2md LrsGP.js LrsGPParameters.js arcGisRestApiUtils.js LinearUnit.js objectUtils.js RouteDraw.js externals.js  --template readme.hbs > README.markdown"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WSDOT-GIS/arcgis-lrs-gp-client.git"
   },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "typings.json",
+    "bower.json"
+  ],
   "keywords": [
     "LRS",
     "WSDOT",

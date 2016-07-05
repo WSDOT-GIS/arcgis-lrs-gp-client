@@ -5,7 +5,7 @@ LinearUnit = require('../LinearUnit.js');
 LrsGPParameters = require('../LrsGPParameters.js');
 LrsGP = require('../LrsGP.js');
 
-var serviceUrl = "http://hqolymgis98d:6080/arcgis/rest/services/Shared/LinearReferencing/GPServer";
+var serviceUrl = "http://data.wsdot.wa.gov/arcgis/rest/services/Shared/LinearReferencing/GPServer";
 
 describe("objectUtils", function () {
     // Create test object.
