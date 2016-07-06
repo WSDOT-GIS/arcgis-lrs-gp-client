@@ -1,4 +1,6 @@
-EventTableProperties = require('../EventTableProperties.js');
+if (typeof require !== "undefined") {
+    EventTableProperties = require('../EventTableProperties.js');
+}
 
 describe("EventTableProperties", function () {
     it("test default constructor values", function () {

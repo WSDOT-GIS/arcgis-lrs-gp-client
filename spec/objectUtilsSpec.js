@@ -1,4 +1,6 @@
-objectUtils = require('../objectUtils.js');
+if (typeof require !== "undefined") {
+    objectUtils = require('../objectUtils.js');
+}
 
 describe("objectUtils", function () {
     // Create test object.

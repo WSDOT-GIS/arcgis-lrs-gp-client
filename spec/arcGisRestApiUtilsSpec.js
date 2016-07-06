@@ -1,4 +1,6 @@
-arcGisRestApiUtils = require('../arcGisRestApiUtils.js');
+if (typeof require !== "undefined") {
+    arcGisRestApiUtils = require('../arcGisRestApiUtils.js');
+}
 
 describe("arcGisRestApiUtils", function () {
     /*

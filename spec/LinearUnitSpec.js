@@ -1,4 +1,6 @@
-LinearUnit = require('../LinearUnit.js');
+if (typeof require !== "undefined") {
+    LinearUnit = require('../LinearUnit.js');
+}
 
 describe("LinearUnit", function () {
     it("default value should be '0 esriFeet'", function () {
