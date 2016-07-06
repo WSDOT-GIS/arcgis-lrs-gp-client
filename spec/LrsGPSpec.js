@@ -1,214 +1,10 @@
-objectUtils = require('../objectUtils.js');
-arcGisRestApiUtils = require('../arcGisRestApiUtils.js');
-EventTableProperties = require('../EventTableProperties.js');
-LinearUnit = require('../LinearUnit.js');
-LrsGPParameters = require('../LrsGPParameters.js');
-LrsGP = require('../LrsGP.js');
+if (typeof require !== "undefined") {
+    LinearUnit = require('../LinearUnit.js');
+    LrsGPParameters = require('../LrsGPParameters.js');
+    LrsGP = require('../LrsGP.js');
+}
 
 var serviceUrl = "http://data.wsdot.wa.gov/arcgis/rest/services/Shared/LinearReferencing/GPServer";
-
-describe("objectUtils", function () {
-    // Create test object.
-    var o = {
-        a: 1,
-        b: 2,
-        c: 3
-    };
-
-    // Add properties to test object.
-    Object.defineProperties(o, {
-        d: {
-            enumerable: true,
-            value: "dee"
-        },
-        e: {
-            enumerable: false,
-            value: "ee"
-        }
-    });
-
-    it("hasAllProperties and hasAnyProperties functions should return expected values", function () {
-        expect(objectUtils.hasAllProperties(o, "a", "b", "c", "d", "e")).toBe(true);
-        expect(objectUtils.hasAllProperties(o, "a", "b", "wrong")).toBe(false);
-        expect(objectUtils.hasAllProperties(o, "a", "b", "c", "d", "wrong")).toBe(false);
-        expect(objectUtils.hasAnyProperties(o, "a", "b", "wrong")).toBe(true);
-        expect(objectUtils.hasAnyProperties(o, "nope", "nada", "wrong")).toBe(false);
-    });
-
-});
-
-describe("LinearUnit", function () {
-    it("default value should be '0 esriFeet'", function () {
-        var lu = new LinearUnit();
-
-        // Test default values.
-        expect(lu.distance).toEqual(0);
-        expect(lu.units).toEqual(LinearUnit.UNIT_VALUES.FEET);
-    });
-    it("should reject invalid values assigned to properties", function () {
-        var lu = new LinearUnit();
-
-        // Invalid values should throw errors on assignment attempt.
-        expect(function () { lu.distance = "0"; }).toThrowError(TypeError);
-        expect(function () { lu.distance = -4; }).toThrow();
-        expect(function () { lu.units = "esriHogsHeads"; }).toThrow();
-    });
-    it("Any of the UNIT_VALUES constant values should not throw an error.", function () {
-        var lu = new LinearUnit();
-
-        // Any of the constant values should not throw an error.
-        expect(function () {
-            for (name in LinearUnit.UNIT_VALUES) {
-                lu.units = LinearUnit.UNIT_VALUES[name];
-            }
-        }).not.toThrow();
-
-    });
-
-});
-
-describe("EventTableProperties", function () {
-    it("test default constructor values", function () {
-        var etp = new EventTableProperties();
-        expect(etp.routeIdField).toEqual("RID");
-        expect(etp.eventType).toEqual("POINT");
-        expect(etp.fromMeasureField).toEqual("MEAS");
-        expect(etp.toMeasureField).toBeNull();
-        expect(etp.toString()).toEqual("RID POINT MEAS");
-        etp = new EventTableProperties("RID", "LINE");
-        expect(etp.fromMeasureField).toEqual("FMEAS");
-        expect(etp.toMeasureField).toEqual("TMEAS");
-        expect(etp.toString()).toEqual("RID LINE FMEAS TMEAS");
-        expect(function () {
-            etp.eventType = "DIAGONAL";
-        }).toThrow();
-    });
-});
-
-describe("arcGisRestApiUtils", function () {
-    /*
-        {
-        "geometryType": "esriGeometryPoint",
-        "spatialReference": {
-            "wkid": 2927
-        },
-        "features": [{
-            "geometry": {
-                "x": 1138873.899,
-                "y": 665643.561
-            }
-        }]
-    }
-     */
-    var point = {
-        "x": 1138873.899,
-        "y": 665643.561,
-        "spatialReference": {
-            "wkid": 2927
-        }
-    };
-
-    var polyline = {
-        "paths": [[[-13698738.461152328, 5960865.213789493], [-13690177.513984391, 5924175.440212619], [-13659602.702670328, 5924175.440212619], [-13629027.891356267, 5959642.221336931], [-13596007.09513708, 5992663.017556118]]],
-        spatialReference: {
-            "wkid": 3857
-        }
-    };
-
-    var polygon = {
-        "rings": [
-          [
-            [
-              -13718306.340393329,
-              5974318.130767681
-            ],
-            [
-              -13646149.785692142,
-              5964534.191147181
-            ],
-            [
-              -13663271.680028018,
-              5920506.462854931
-            ],
-            [
-              -13706076.415867705,
-              5905830.553424181
-            ],
-            [
-              -13718306.340393329,
-              5974318.130767681
-            ]
-          ]
-        ]
-    };
-
-    var multipoint = {
-        "points": [
-          [
-            -13460254.932902642,
-            6143091.089221305
-          ],
-          [
-            -13386875.385748893,
-            6114962.262812368
-          ],
-          [
-            -13396659.325369393,
-            6058704.6099944925
-          ],
-          [
-            -13465146.902712893,
-            6034244.760943243
-          ],
-          [
-            -13503059.668742329,
-            5979210.100577931
-          ],
-          [
-            -13496944.706479518,
-            5904607.560971619
-          ],
-          [
-            -13461477.925355205,
-            5870363.772299869
-          ]
-        ]
-    };
-
-
-    it("should detect geometry type correctly", function () {
-        expect(arcGisRestApiUtils.getGeometryType(point)).toEqual("point");
-        expect(arcGisRestApiUtils.getGeometryType(polyline)).toEqual("polyline");
-        expect(arcGisRestApiUtils.getGeometryType(polygon)).toEqual("polygon");
-        expect(arcGisRestApiUtils.getGeometryType(multipoint)).toEqual("multipoint");
-    });
-    describe("FeatureSet test", function () {
-        var pointFeatureSet = arcGisRestApiUtils.createFeatureSet([point]);
-        var polylineFeatureSet = arcGisRestApiUtils.createFeatureSet([polyline]);
-        var polygonFeatureSet = arcGisRestApiUtils.createFeatureSet([polygon], 3857);
-        var multipointFeatureSet = arcGisRestApiUtils.createFeatureSet([multipoint], { wkid: 3857 });
-
-        it("feature set type should match geometry", function () {
-            expect(pointFeatureSet.geometryType).toEqual("esriGeometryPoint");
-            expect(polylineFeatureSet.geometryType).toEqual("esriGeometryPolyline");
-            expect(polygonFeatureSet.geometryType).toEqual("esriGeometryPolygon");
-            expect(multipointFeatureSet.geometryType).toEqual("esriGeometryMultipoint");
-
-        });
-        it("feature set spatial reference should match first input geometry.", function () {
-            expect(pointFeatureSet.spatialReference.wkid).toEqual(2927);
-            expect(polylineFeatureSet.spatialReference.wkid).toEqual(3857);
-            expect(polygonFeatureSet.spatialReference.wkid).toEqual(3857);
-            expect(multipointFeatureSet.spatialReference.wkid).toEqual(3857);
-        });
-        it("feature set should have same number of features as number input geometries used to create it.", function () {
-            expect(pointFeatureSet.features.length).toEqual(1);
-            expect(polylineFeatureSet.features.length).toEqual(1);
-            expect(polygonFeatureSet.features.length).toEqual(1);
-            expect(multipointFeatureSet.features.length).toEqual(1);
-        });
-    });
-});
 
 describe("LrsGP", function () {
     var lrsGPp = new LrsGPParameters();
@@ -419,10 +215,10 @@ describe("LrsGP", function () {
 
 
                 lrs.pointsToRouteEvents(lrsGPp).then(function (results) {
-                    console.log("get point GP service", {
-                        GPResults: results,
-                        elapsedTime: [getElapsedSeconds(startTime), "seconds"].join(" ")
-                    });
+                    // console.log("get point GP service", {
+                    //     GPResults: results,
+                    //     elapsedTime: [getElapsedSeconds(startTime), "seconds"].join(" ")
+                    // });
                     expect(results).not.toEqual(null);
                     expect(results.features.length).toEqual(6);
                     done();
@@ -438,18 +234,18 @@ describe("LrsGP", function () {
                 gpParams.Input_Features = lineFeatures;
                 gpParams.Search_Radius = new LinearUnit(10, LinearUnit.UNIT_VALUES.FEET);
                 lrs.pointsToRouteSegments(gpParams).then(function (results) {
-                    console.log("get line GP service", {
-                        GPResults: results,
-                        elapsedTime: [getElapsedSeconds(startTime), "seconds"].join(" ")
-                    });
+                    // console.log("get line GP service", {
+                    //     GPResults: results,
+                    //     elapsedTime: [getElapsedSeconds(startTime), "seconds"].join(" ")
+                    // });
                     expect(results).not.toEqual(null);
                     expect(results.features.length).toEqual(6);
                     done();
                 }, function (error) {
                     console.error(error);
-                    done.fail(error);
+                    done.fail(JSON.stringify(error));
                 });
-            }, 20000);
+            }, 25000);
         }
 
         describe("Using spies", function () {
@@ -810,6 +606,8 @@ describe("LrsGP", function () {
                 }).then(function (result) {
                     expect(result.ok).toBe(true);
                     done();
+                }, function(error) {
+                    done.fail(error);
                 });
             });
 
