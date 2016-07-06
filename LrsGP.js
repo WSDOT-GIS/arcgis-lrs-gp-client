@@ -35,7 +35,7 @@
                     headers: {
                         "content-type": "application/x-www-form-urlencoded"
                     },
-                    options: 'POST',
+                    method: 'POST',
                     body: parts[1]
                 });
             } else {
