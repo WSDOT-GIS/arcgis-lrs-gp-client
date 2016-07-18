@@ -1,4 +1,4 @@
-﻿require([
+require([
     "dojo/promise/all",
     "esri/InfoTemplate",
     "esri/config",

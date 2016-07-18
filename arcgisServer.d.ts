@@ -14,9 +14,35 @@ declare namespace arcgisServer {
         wkid?: number,
         wkt?: number,
     }
-    interface FeatureSet {
-        features: Geometry[]
-        spatialReference: SpatialReference
+    interface Field {
+        name: string,
+        alias?: string,
+        type: FieldType,
+        length?: number
     }
-    type GeometryType = "esriPoint" | "esriMultipoint" | "esriPolyline" | "esriPolygon" | "esriEnvelope"; 
+    interface FeatureSet {
+        displayFieldName?: string,
+        hasZ?: boolean,
+        hasM?: boolean,
+        geometryType?: GeometryType,
+        fields?: Array<Object>,
+        features: Geometry[]
+        spatialReference: SpatialReference,
+        exceededTransferLimit?: boolean
+    }
+    type GeometryType = "esriPoint" | "esriMultipoint" | "esriPolyline" | "esriPolygon" | "esriEnvelope";
+    type FieldType =
+        "esriFieldTypeInteger" |
+        "esriFieldTypeSmallInteger" |
+        "esriFieldTypeDouble" |
+        "esriFieldTypeSingle" |
+        "esriFieldTypeString" |
+        "esriFieldTypeDate" |
+        "esriFieldTypeGeometry" |
+        "esriFieldTypeOID" |
+        "esriFieldTypeBlob" |
+        "esriFieldTypeGlobalID" |
+        "esriFieldTypeRaster" |
+        "esriFieldTypeGUID" |
+        "esriFieldTypeXML";
 }
