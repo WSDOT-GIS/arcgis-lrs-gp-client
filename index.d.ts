@@ -92,6 +92,21 @@ declare module "EventTableProperties" {
 }
 
 declare module "LinearUnit" {
+    type UnitValueTypes = {
+        FEET: "esriFeet";
+        CENTIMETERS: "esriCentimeters";
+        DECIMAL_DEGREES: "esriDecimalDegrees";
+        DECIMETERS: "esriDecimeters";
+        INCHES: "esriInches";
+        KILOMETERS: "esriKilometers";
+        METERS: "esriMeters";
+        MILES: "esriMiles";
+        MILLIMETERS: "esriMillimeters";
+        NAUTICAL_MILES: "esriNauticalMiles";
+        POINTS: "esriPoints";
+        UNKNOWN: "esriUnknown";
+        YARDS: "esriYards";
+    }
 
     type UnitValue =
         "esriFeet" |
@@ -112,6 +127,7 @@ declare module "LinearUnit" {
         constructor(distance?: number, units?: UnitValue);
         distance: number;
         units: UnitValue;
+        static UNIT_VALUES: UnitValueTypes
     }
 
     export = LinearUnit
