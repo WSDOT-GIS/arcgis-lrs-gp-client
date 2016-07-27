@@ -11,6 +11,7 @@
  */
 
 /*eslint-env worker*/
+/*global LrsGP, LrsGPParameters*/
 importScripts(
     'bower_components/core.js/client/core.min.js',
     'bower_components/fetch/fetch.js',
@@ -36,7 +37,7 @@ self.addEventListener("message", function (message) {
 
     var task = message.data.task;
 
-    var geometryType = arcGisRestApiUtils.getFeatureSetGeometryType(gpParams.Input_Features);
+    // var geometryType = arcGisRestApiUtils.getFeatureSetGeometryType(gpParams.Input_Features);
 
     var responseHandler = function (gpResults) {
         self.postMessage(gpResults);

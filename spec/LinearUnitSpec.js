@@ -1,5 +1,7 @@
+/*eslint-env jasmine*/
+/*global LinearUnit*/
 if (typeof require !== "undefined") {
-    LinearUnit = require('../LinearUnit.js');
+    LinearUnit = require('../LinearUnit.js'); //eslint-disable-line no-native-reassign
 }
 
 describe("LinearUnit", function () {
@@ -23,6 +25,7 @@ describe("LinearUnit", function () {
 
         // Any of the constant values should not throw an error.
         expect(function () {
+            var name;
             for (name in LinearUnit.UNIT_VALUES) {
                 lu.units = LinearUnit.UNIT_VALUES[name];
             }

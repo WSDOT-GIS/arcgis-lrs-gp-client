@@ -1,5 +1,7 @@
+/*eslint-env jasmine*/
+/*global objectUtils*/
 if (typeof require !== "undefined") {
-    objectUtils = require('../objectUtils.js');
+    objectUtils = require('../objectUtils.js'); //eslint-disable-line no-native-reassign
 }
 
 describe("objectUtils", function () {

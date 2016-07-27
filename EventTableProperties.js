@@ -23,7 +23,6 @@
      * @constructor
      */
     function EventTableProperties(routeIdField, eventType, fromMeasureField, toMeasureField) {
-        var self = this;
         var _eventType = "POINT";
 
         Object.defineProperties(this, {

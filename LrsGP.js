@@ -10,7 +10,7 @@
     }
 } (this, function (arcGisRestApiUtils, LrsGPParameters, fetchFunction) {
     if (fetchFunction) {
-        fetch = fetchFunction;
+        fetch = fetchFunction; // eslint-disable-line no-native-reassign
     }
 
     const DEFAULT_MAX_URL_LENGTH = 2000;
@@ -28,7 +28,7 @@
     function execute(url, maxUrlLength) {
         maxUrlLength = maxUrlLength || DEFAULT_MAX_URL_LENGTH;
         return new Promise(function (resolve, reject) {
-            var promise, options;
+            var promise;
             if (url.length > maxUrlLength) {
                 var parts = url.split("?", 2);
                 promise = fetch(parts[0], {
@@ -130,7 +130,7 @@
                     return maxUrlLength;
                 },
                 set: function (value) {
-                    if (typeof value === number) {
+                    if (typeof value === "number") {
                         maxUrlLength = value;
                     } else {
                         throw new TypeError("maxUrlLength must be a number.");

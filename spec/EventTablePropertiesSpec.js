@@ -1,5 +1,8 @@
+/*eslint-env jasmine*/
+/*global EventTableProperties*/
+
 if (typeof require !== "undefined") {
-    EventTableProperties = require('../EventTableProperties.js');
+    EventTableProperties = require('../EventTableProperties.js'); // eslint-disable-line no-native-reassign
 }
 
 describe("EventTableProperties", function () {

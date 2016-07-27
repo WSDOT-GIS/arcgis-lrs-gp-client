@@ -55,10 +55,10 @@
         var Calculated_Angle_Type = null;
         var Write_the_complement_of_the_angle_to_the_angle_field = null;
         var f = "json";
-        var env_outSR = null;
-        var env_processSR = null;
-        var returnM = true;
-        var returnZ = true;
+        // var env_outSR = null;
+        // var env_processSR = null;
+        // var returnM = true;
+        // var returnZ = true;
 
         Object.defineProperties(this, {
             /**

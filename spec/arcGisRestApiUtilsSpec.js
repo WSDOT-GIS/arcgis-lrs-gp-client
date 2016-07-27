@@ -1,5 +1,9 @@
+/*eslint-env jasmine*/
+/*eslint indent:0*/
+/*global arcGisRestApiUtils*/
+
 if (typeof require !== "undefined") {
-    arcGisRestApiUtils = require('../arcGisRestApiUtils.js');
+    arcGisRestApiUtils = require('../arcGisRestApiUtils.js'); // eslint-disable-line no-native-reassign
 }
 
 describe("arcGisRestApiUtils", function () {

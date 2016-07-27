@@ -1,8 +1,13 @@
+/*eslint-env jasmine*/
+/*global LinearUnit, LrsGP, LrsGPParameters*/
+/*eslint indent:0*/
+/*eslint-disable no-native-reassign */
 if (typeof require !== "undefined") {
     LinearUnit = require('../LinearUnit.js');
     LrsGPParameters = require('../LrsGPParameters.js');
     LrsGP = require('../LrsGP.js');
 }
+/*eslint-enable no-native-reassign */
 
 var serviceUrl = "http://data.wsdot.wa.gov/arcgis/rest/services/Shared/LinearReferencing/GPServer";
 
@@ -53,7 +58,7 @@ describe("LrsGP", function () {
     };
     lrsGPp.Search_Radius = new LinearUnit(10, LinearUnit.UNIT_VALUES.FEET);
 
-    lineFeatures = {
+    var lineFeatures = {
         "displayFieldName": "",
         "fieldAliases": {
             "OBJECTID": "OBJECTID"
@@ -204,14 +209,14 @@ describe("LrsGP", function () {
         });
 
 
-        function getElapsedSeconds(startTime) {
-            var endTime = new Date();
-            return (endTime - startTime) / 1000;
-        }
+        // function getElapsedSeconds(startTime) {
+        //     var endTime = new Date();
+        //     return (endTime - startTime) / 1000;
+        // }
 
         function runTests() {
             it("should successfully call point GP Service", function (done) {
-                var startTime = new Date();
+                // var startTime = new Date();
 
 
                 lrs.pointsToRouteEvents(lrsGPp).then(function (results) {
@@ -223,13 +228,13 @@ describe("LrsGP", function () {
                     expect(results.features.length).toEqual(6);
                     done();
                 }, function (err) {
-                    console.error(err);
+                    // console.error(err);
                     done.fail(err);
                 });
             }, 10000);
 
             it("should successfully call line GP Service", function (done) {
-                var startTime = new Date();
+                // var startTime = new Date();
                 var gpParams = new LrsGPParameters();
                 gpParams.Input_Features = lineFeatures;
                 gpParams.Search_Radius = new LinearUnit(10, LinearUnit.UNIT_VALUES.FEET);
@@ -242,7 +247,7 @@ describe("LrsGP", function () {
                     expect(results.features.length).toEqual(6);
                     done();
                 }, function (error) {
-                    console.error(error);
+                    // console.error(error);
                     done.fail(JSON.stringify(error));
                 });
             }, 25000);
@@ -252,10 +257,10 @@ describe("LrsGP", function () {
             // Setup spies, which simulate the output of the GP services without actually calling them.
 
             beforeEach(function () {
-                spyOn(LrsGP.prototype, "pointsToRouteEvents").and.returnValue(new Promise(function (resolve, reject) {
+                spyOn(LrsGP.prototype, "pointsToRouteEvents").and.returnValue(new Promise(function (resolve) {
                     resolve({ "displayFieldName": "", "hasZ": true, "hasM": true, "geometryType": "esriGeometryPoint", "spatialReference": { "wkid": 2927, "latestWkid": 2927 }, "fields": [{ "name": "OID", "type": "esriFieldTypeOID", "alias": "OID" }, { "name": "RouteId", "type": "esriFieldTypeString", "alias": "RouteId", "length": 60 }, { "name": "Measure", "type": "esriFieldTypeDouble", "alias": "Measure" }, { "name": "Distance", "type": "esriFieldTypeDouble", "alias": "Distance" }, { "name": "INPUTOID", "type": "esriFieldTypeInteger", "alias": "INPUTOID" }, { "name": "LOC_ANGLE", "type": "esriFieldTypeDouble", "alias": "LOC_ANGLE" }], "features": [{ "attributes": { "OID": 0, "RouteId": "005d", "Measure": 101.150670424, "Distance": 4.7334890861199996, "INPUTOID": 0, "LOC_ANGLE": 149.76929959010377 }, "geometry": { "x": 1034138.2828935471, "y": 609154.75167417957, "z": 0, "m": 101.15067042400001 } }, { "attributes": { "OID": 5, "RouteId": "005P110093", "Measure": 0.160699999993, "Distance": -2.9174165737900002, "INPUTOID": 5, "LOC_ANGLE": 140.82763971479287 }, "geometry": { "x": 1034266.8110326381, "y": 609134.87403947115, "z": 0, "m": 0.16069999999308493 } }, { "attributes": { "OID": 2, "RouteId": "005d", "Measure": 101.19429331400001, "Distance": 3.54992942822, "INPUTOID": 2, "LOC_ANGLE": 148.31765317849641 }, "geometry": { "x": 1034255.8653325734, "y": 609353.9388571434, "z": 0, "m": 101.19429331400001 } }, { "attributes": { "OID": 1, "RouteId": "005d", "Measure": 101.177554679, "Distance": 6.5896930865199996, "INPUTOID": 1, "LOC_ANGLE": 149.76929959010377 }, "geometry": { "x": 1034210.0211383119, "y": 609277.85854245583, "z": 0, "m": 101.177554679 } }, { "attributes": { "OID": 3, "RouteId": "005", "Measure": 101.192220053, "Distance": 1.4474583407399999, "INPUTOID": 3, "LOC_ANGLE": 148.63420570127357 }, "geometry": { "x": 1034282.1070023198, "y": 609308.11317058734, "z": 0, "m": 101.192220053 } }, { "attributes": { "OID": 4, "RouteId": "005", "Measure": 101.167201464, "Distance": -0.91399544795900001, "INPUTOID": 4, "LOC_ANGLE": 150.34993828801464 }, "geometry": { "x": 1034212.7840441919, "y": 609190.53158329602, "z": 0, "m": 101.16720146399999 } }], "exceededTransferLimit": false });
                 }));
-                spyOn(LrsGP.prototype, "pointsToRouteSegments").and.returnValue(new Promise(function (resolve, reject) {
+                spyOn(LrsGP.prototype, "pointsToRouteSegments").and.returnValue(new Promise(function (resolve) {
                     resolve({
                                 "displayFieldName": "",
                                 "hasM": true,
