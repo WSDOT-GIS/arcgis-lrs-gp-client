@@ -32,9 +32,9 @@
     "externals.js"
   ],
   "devDependencies": {
-    "jasmine-core": "^2.4.1",
-    "dialog-polyfill": "^0.4.3",
-    "fetch": "^0.11.0",
-    "core.js": "~2.2.0"
+    "jasmine-core": "^2.6.1",
+    "dialog-polyfill": "^0.4.7",
+    "fetch": "^2.0.3",
+    "core.js": "~2.4.1"
   }
 }

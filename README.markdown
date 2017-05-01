@@ -117,11 +117,12 @@ A module for calling the LRS geoprocessing service.
             * [~url](#module_LrsGP--LrsGP..url) : <code>string</code>
             * [~pointTaskUrl](#module_LrsGP--LrsGP..pointTaskUrl) : <code>string</code>
             * [~linesTaskUrl](#module_LrsGP--LrsGP..linesTaskUrl) : <code>string</code>
+            * [~maxUrlLength](#module_LrsGP--LrsGP..maxUrlLength) : <code>number</code>
 
 <a name="exp_module_LrsGP--LrsGP"></a>
 
 ### LrsGP ⏏
-**Kind**: Exported class
+**Kind**: Exported class  
 <a name="new_module_LrsGP--LrsGP_new"></a>
 
 #### new LrsGP(options)
@@ -137,8 +138,9 @@ A module for calling the LRS geoprocessing service.
 | [options.async] | <code>Boolean</code> | <code>false</code> | Specifies that the GP service is asynchronous. |
 | [options.pointTaskName] | <code>string</code> | <code>&quot;\&quot;Points to Route Events\&quot;&quot;</code> | Name of the task that converts points to route events. |
 | [options.linesTaskName] | <code>string</code> | <code>&quot;\&quot;Points to Route Segments\&quot;&quot;</code> | Name of the task that converts polylines to route events. |
+| [options.maxUrlLength] | <code>number</code> | <code>255</code> | Maximum URL length before switching from GET to POST. |
 
-**Example**
+**Example**  
 ```js
 var lrs = new LrsGP({url: "http://example.com/arcgis/rest/services/OptionalFolderLevel/LinearReferencing/GPServer" });
 ```
@@ -147,113 +149,57 @@ var lrs = new LrsGP({url: "http://example.com/arcgis/rest/services/OptionalFolde
 #### lrsGP.pointsToRouteEvents(lrsGpParams) ⇒ <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code>
 Locates points along routes.
 
-**Kind**: instance method of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>
-**Returns**: <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code> - - Returns a promise with a Feature Set.
+**Kind**: instance method of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
+**Returns**: <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code> - - Returns a promise with a Feature Set.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | lrsGpParams | <code>[LrsGPParameters](#module_LrsGPParameters)</code> | LRS GP Parameters. |
 
-**Example**
+**Example**  
 ```js
-var inFeatures = {
- "geometryType": "esriGeometryPoint",
- "spatialReference": {
-     "wkid": 2927
- },
- "features": [
-   {
-       "geometry": {
-           "x": 1108486.9299805611,
-           "y": 647781.35678572953
-       }
-   },
-   {
-       "geometry": {
-           "x": 1109214.2005076408,
-           "y": 648022.67913772166
-       }
-   }
-  ]
- };
-
- var lrsParams = new LrsGPParameters({
-     Input_Features = inFeatures,
-     Search_Radius = new LinearUnit(50, LinearUnit.UNIT_VALUES.FEET)
- });
- var gp = new LrsGP(new LrsGP({
-     url: "http://example.com/arcgis/rest/services/OptionalFolderLevel/LinearReferencing/GPServer"
- });
- gp.pointsToRouteEvents(lrsParams).then(function(featureSet) {
-     // Do something with the feature set.
-     console.debug(featureSet);
- });
+var inFeatures = { "geometryType": "esriGeometryPoint", "spatialReference": {     "wkid": 2927 }, "features": [   {       "geometry": {           "x": 1108486.9299805611,           "y": 647781.35678572953       }   },   {       "geometry": {           "x": 1109214.2005076408,           "y": 648022.67913772166       }   }  ] }; var lrsParams = new LrsGPParameters({     Input_Features = inFeatures,     Search_Radius = new LinearUnit(50, LinearUnit.UNIT_VALUES.FEET) }); var gp = new LrsGP(new LrsGP({     url: "http://example.com/arcgis/rest/services/OptionalFolderLevel/LinearReferencing/GPServer" }); gp.pointsToRouteEvents(lrsParams).then(function(featureSet) {     // Do something with the feature set.     console.debug(featureSet); });
 ```
 <a name="module_LrsGP--LrsGP+pointsToRouteSegments"></a>
 
 #### lrsGP.pointsToRouteSegments(lrsGpParams) ⇒ <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code>
 Locates line segments along routes.
 
-**Kind**: instance method of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>
-**Returns**: <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code> - - Returns a promise with a Feature Set.
+**Kind**: instance method of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
+**Returns**: <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code> - - Returns a promise with a Feature Set.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | lrsGpParams | <code>[LrsGPParameters](#module_LrsGPParameters)</code> | LRS GP Parameters. |
 
-**Example**
+**Example**  
 ```js
-var inFeatures = {
- "geometryType": "esriGeometryPoint",
- "spatialReference": {
-     "wkid": 2927
- },
- "features": [
-   {
-       "geometry": {
-           "x": 1108486.9299805611,
-           "y": 647781.35678572953
-       }
-   },
-   {
-       "geometry": {
-           "x": 1109214.2005076408,
-           "y": 648022.67913772166
-       }
-   }
-  ]
- };
-
- var lrsParams = new LrsGPParameters({
-     Input_Features = inFeatures,
-     Search_Radius = new LinearUnit(50, LinearUnit.UNIT_VALUES.FEET)
- });
- var gp = new LrsGP(new LrsGP({
-     url: "http://example.com/arcgis/rest/services/OptionalFolderLevel/LinearReferencing/GPServer"
- });
- gp.pointsToRouteSegements(lrsParams).then(function(featureSet) {
-     // Do something with the feature set.
-     console.debug(featureSet);
- });
+var inFeatures = { "geometryType": "esriGeometryPoint", "spatialReference": {     "wkid": 2927 }, "features": [   {       "geometry": {           "x": 1108486.9299805611,           "y": 647781.35678572953       }   },   {       "geometry": {           "x": 1109214.2005076408,           "y": 648022.67913772166       }   }  ] }; var lrsParams = new LrsGPParameters({     Input_Features = inFeatures,     Search_Radius = new LinearUnit(50, LinearUnit.UNIT_VALUES.FEET) }); var gp = new LrsGP(new LrsGP({     url: "http://example.com/arcgis/rest/services/OptionalFolderLevel/LinearReferencing/GPServer" }); gp.pointsToRouteSegements(lrsParams).then(function(featureSet) {     // Do something with the feature set.     console.debug(featureSet); });
 ```
 <a name="module_LrsGP--LrsGP..url"></a>
 
 #### LrsGP~url : <code>string</code>
 The geoprocessing service URL.
 
-**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>
+**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
 <a name="module_LrsGP--LrsGP..pointTaskUrl"></a>
 
 #### LrsGP~pointTaskUrl : <code>string</code>
 URL for the point location task.
 
-**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>
+**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
 <a name="module_LrsGP--LrsGP..linesTaskUrl"></a>
 
 #### LrsGP~linesTaskUrl : <code>string</code>
 URL for the line segment location task.
 
-**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>
+**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
+<a name="module_LrsGP--LrsGP..maxUrlLength"></a>
+
+#### LrsGP~maxUrlLength : <code>number</code>
+Maximum URL length before switching from GET to POST.
+
+**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
 <a name="module_LrsGPParameters"></a>
 
 ## LrsGPParameters
@@ -262,7 +208,7 @@ A module defining parameters object for the LRS geoprocessing service.
 <a name="exp_module_LrsGPParameters--LrsGPParameters"></a>
 
 ### LrsGPParameters ⏏
-**Kind**: Exported class
+**Kind**: Exported class  
 **See**
 
 - [Locate Features Along Routes](http://desktop.arcgis.com/en/arcmap/latest/tools/linear-ref-toolbox/locate-features-along-routes.htm)
@@ -287,8 +233,8 @@ A module for calling the LRS geoprocessing service.
 <a name="exp_module_LinearUnit--LinearUnit"></a>
 
 ### LinearUnit ⏏
-**Kind**: Exported class
-**See**: [UNIT_VALUES](#module_LinearUnit--LinearUnit.UNIT_VALUES) constants.
+**Kind**: Exported class  
+**See**: [UNIT_VALUES](#module_LinearUnit--LinearUnit.UNIT_VALUES) constants.  
 <a name="new_module_LinearUnit--LinearUnit_new"></a>
 
 #### new LinearUnit([distance], [units])
@@ -308,7 +254,7 @@ A module for calling the LRS geoprocessing service.
 #### LinearUnit.UNIT_VALUES : <code>Object.&lt;string, string&gt;</code>
 List of the valid linear unit types.
 
-**Kind**: static constant of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>
+**Kind**: static constant of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
 **Properties**
 
 | Name | Type | Description |
@@ -332,11 +278,11 @@ List of the valid linear unit types.
 #### LinearUnit~distance : <code>number</code>
 A number greater than or equal to zero.
 
-**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>
+**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
 <a name="module_LinearUnit--LinearUnit..distance.set"></a>
 
 ##### distance.set(v)
-**Kind**: static method of <code>[distance](#module_LinearUnit--LinearUnit..distance)</code>
+**Kind**: static method of <code>[distance](#module_LinearUnit--LinearUnit..distance)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -345,7 +291,7 @@ A number greater than or equal to zero.
 <a name="module_LinearUnit--LinearUnit..units"></a>
 
 #### LinearUnit~units : <code>string</code>
-**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>
+**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
 <a name="module_RouteDraw"></a>
 
 ## RouteDraw
@@ -354,6 +300,8 @@ Extension of [Draw](#external_Draw)
 
 * [RouteDraw](#module_RouteDraw)
     * [~pointsLayer](#module_RouteDraw..pointsLayer) : <code>[GraphicsLayer](#external_GraphicsLayer)</code>
+    * [~activatePointDraw(options)](#module_RouteDraw..activatePointDraw)
+    * [~activateLineDraw(options)](#module_RouteDraw..activateLineDraw)
     * [~querySnapLayers(geometry)](#module_RouteDraw..querySnapLayers) ⇒ <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code>
 
 <a name="module_RouteDraw..pointsLayer"></a>
@@ -361,14 +309,38 @@ Extension of [Draw](#external_Draw)
 ### RouteDraw~pointsLayer : <code>[GraphicsLayer](#external_GraphicsLayer)</code>
 Point graphics layer.
 
-**Kind**: inner property of <code>[RouteDraw](#module_RouteDraw)</code>
+**Kind**: inner property of <code>[RouteDraw](#module_RouteDraw)</code>  
+<a name="module_RouteDraw..activatePointDraw"></a>
+
+### RouteDraw~activatePointDraw(options)
+Activates the toolbar to draw route points.
+
+**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>  
+**See**: {external:esri/toolbars/draw}  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> | Draw toolbar options |
+
+<a name="module_RouteDraw..activateLineDraw"></a>
+
+### RouteDraw~activateLineDraw(options)
+Activates the toolbar to draw a route segment.
+
+**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>  
+**See**: {external:esri/toolbars/draw}  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> | Draw toolbar options |
+
 <a name="module_RouteDraw..querySnapLayers"></a>
 
 ### RouteDraw~querySnapLayers(geometry) ⇒ <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code>
 Queries all of the layers that are used for snapping for the specified geometry.
 
-**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>
-**Returns**: <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code> - - The results of multiple feature layer queries.
+**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>  
+**Returns**: <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code> - - The results of multiple feature layer queries.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -377,7 +349,7 @@ Queries all of the layers that are used for snapping for the specified geometry.
 <a name="RouteDraw"></a>
 
 ## RouteDraw
-**Kind**: global class
+**Kind**: global class  
 <a name="new_RouteDraw_new"></a>
 
 ### new constructor(map, options, routeLayers)
@@ -393,43 +365,43 @@ Queries all of the layers that are used for snapping for the specified geometry.
 ## FeatureSet
 ArcGIS REST API feature set.
 
-**Kind**: global external
-**See**: [FeatureSet object](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/FeatureSet_object/02r3000002mn000000/)
+**Kind**: global external  
+**See**: [FeatureSet object](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/FeatureSet_object/02r3000002mn000000/)  
 <a name="external_Geometry"></a>
 
 ## Geometry
 ArcGIS REST API geometry definitions.
 
-**Kind**: global external
-**See**: [Geometry objects](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/)
+**Kind**: global external  
+**See**: [Geometry objects](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/)  
 <a name="external_SpatialReference"></a>
 
 ## SpatialReference
 ArcGIS REST API spatial reference
 
-**Kind**: global external
-**See**: [Geometry objects: Spatial Reference](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/#GUID-DFF0E738-5A42-40BC-A811-ACCB5814BABC)
+**Kind**: global external  
+**See**: [Geometry objects: Spatial Reference](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_objects/02r3000000n1000000/#GUID-DFF0E738-5A42-40BC-A811-ACCB5814BABC)  
 <a name="external_GPResult"></a>
 
 ## GPResult
 Geoprocessing result.
 
-**Kind**: global external
-**See**: [GP Result](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/GP_Result/02r3000000q7000000/)
+**Kind**: global external  
+**See**: [GP Result](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/GP_Result/02r3000000q7000000/)  
 <a name="external_Draw"></a>
 
 ## Draw
 Draw toolbar
 
-**Kind**: global external
-**See**: [Draw](https://developers.arcgis.com/javascript/3/jsapi/draw-amd.html)
+**Kind**: global external  
+**See**: [Draw](https://developers.arcgis.com/javascript/3/jsapi/draw-amd.html)  
 <a name="external_GraphicsLayer"></a>
 
 ## GraphicsLayer
 Graphics Layer
 
-**Kind**: global external
-**See**: [GraphicsLayer](https://developers.arcgis.com/javascript/3/jsapi/graphicslayer-amd.html)
+**Kind**: global external  
+**See**: [GraphicsLayer](https://developers.arcgis.com/javascript/3/jsapi/graphicslayer-amd.html)  
 
 [AMD]:https://github.com/amdjs/amdjs-api/wiki
 [Jasmine]:https://jasmine.github.io/

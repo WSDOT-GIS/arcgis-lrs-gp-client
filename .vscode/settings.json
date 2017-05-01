@@ -10,5 +10,6 @@
         "**/*.sln": true,
         "**/*.csproj*": true,
         ".vs": true
-    }
+    },
+    "tslint.ignoreDefinitionFiles": false
 }
