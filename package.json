@@ -1,6 +1,6 @@
 {
   "name": "arcgis-lrs-gp-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Client library for accessing WSDOT Linear Referencing ArcGIS Geoprocessing services",
   "main": "LrsGP.js",
   "files": [
