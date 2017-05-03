@@ -235,15 +235,18 @@ describe("LrsGP", function () {
 
             it("should successfully call line GP Service", function (done) {
                 // var startTime = new Date();
+                var outWkid = 102100;
                 var gpParams = new LrsGPParameters();
                 gpParams.Input_Features = lineFeatures;
                 gpParams.Search_Radius = new LinearUnit(10, LinearUnit.UNIT_VALUES.FEET);
+                gpParams["env:outSR"] = outWkid;
                 lrs.pointsToRouteSegments(gpParams).then(function (results) {
                     // console.log("get line GP service", {
                     //     GPResults: results,
                     //     elapsedTime: [getElapsedSeconds(startTime), "seconds"].join(" ")
                     // });
                     expect(results).not.toEqual(null);
+                    expect(results.spatialReference.wkid).toEqual(outWkid);
                     expect(results.features.length).toEqual(6);
                     done();
                 }, function (error) {
@@ -266,8 +269,8 @@ describe("LrsGP", function () {
                                 "hasM": true,
                                 "geometryType": "esriGeometryPolyline",
                                 "spatialReference": {
-                                    "wkid": 2927,
-                                    "latestWkid": 2927
+                                    "wkid": 102100,
+                                    "latestWkid": 102100
                                 },
                                 "fields": [
                                  {

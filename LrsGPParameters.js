@@ -29,8 +29,8 @@
      * @property {?Boolean} Generate_an_angle_field - Generate_an_angle_field
      * @property {?string} Calculated_Angle_Type - Calculated Angle Type. Valid values are "NORMAL" and "TANGENT".
      * @property {?Boolean} Write_the_complement_of_the_angle_to_the_angle_field - Write_the_complement_of_the_angle_to_the_angle_field
-     * @property {?number} env_outSR - env:outSR
-     * @property {?number} env_processSR - env:processSR
+     * @property {?number} [env:outSR] - env:outSR
+     * @property {?number} [env:processSR] - env:processSR
      * @property {?Boolean} returnM - returnM
      * @property {?Boolean} returnZ - returnZ
      */
@@ -55,10 +55,6 @@
         var Calculated_Angle_Type = null;
         var Write_the_complement_of_the_angle_to_the_angle_field = null;
         var f = "json";
-        // var env_outSR = null;
-        // var env_processSR = null;
-        // var returnM = true;
-        // var returnZ = true;
 
         Object.defineProperties(this, {
             /**
