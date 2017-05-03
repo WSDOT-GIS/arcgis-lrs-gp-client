@@ -111,8 +111,8 @@ A module for calling the LRS geoprocessing service.
     * [LrsGP](#exp_module_LrsGP--LrsGP) ⏏
         * [new LrsGP(options)](#new_module_LrsGP--LrsGP_new)
         * _instance_
-            * [.pointsToRouteEvents(lrsGpParams)](#module_LrsGP--LrsGP+pointsToRouteEvents) ⇒ <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code>
-            * [.pointsToRouteSegments(lrsGpParams)](#module_LrsGP--LrsGP+pointsToRouteSegments) ⇒ <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code>
+            * [.pointsToRouteEvents(lrsGpParams)](#module_LrsGP--LrsGP+pointsToRouteEvents) ⇒ [<code>Promise.&lt;FeatureSet&gt;</code>](#external_FeatureSet)
+            * [.pointsToRouteSegments(lrsGpParams)](#module_LrsGP--LrsGP+pointsToRouteSegments) ⇒ [<code>Promise.&lt;FeatureSet&gt;</code>](#external_FeatureSet)
         * _inner_
             * [~url](#module_LrsGP--LrsGP..url) : <code>string</code>
             * [~pointTaskUrl](#module_LrsGP--LrsGP..pointTaskUrl) : <code>string</code>
@@ -146,15 +146,15 @@ var lrs = new LrsGP({url: "http://example.com/arcgis/rest/services/OptionalFolde
 ```
 <a name="module_LrsGP--LrsGP+pointsToRouteEvents"></a>
 
-#### lrsGP.pointsToRouteEvents(lrsGpParams) ⇒ <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code>
+#### lrsGP.pointsToRouteEvents(lrsGpParams) ⇒ [<code>Promise.&lt;FeatureSet&gt;</code>](#external_FeatureSet)
 Locates points along routes.
 
-**Kind**: instance method of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
-**Returns**: <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code> - - Returns a promise with a Feature Set.  
+**Kind**: instance method of [<code>LrsGP</code>](#exp_module_LrsGP--LrsGP)  
+**Returns**: [<code>Promise.&lt;FeatureSet&gt;</code>](#external_FeatureSet) - - Returns a promise with a Feature Set.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| lrsGpParams | <code>[LrsGPParameters](#module_LrsGPParameters)</code> | LRS GP Parameters. |
+| lrsGpParams | [<code>LrsGPParameters</code>](#module_LrsGPParameters) | LRS GP Parameters. |
 
 **Example**  
 ```js
@@ -162,15 +162,15 @@ var inFeatures = { "geometryType": "esriGeometryPoint", "spatialReference": {
 ```
 <a name="module_LrsGP--LrsGP+pointsToRouteSegments"></a>
 
-#### lrsGP.pointsToRouteSegments(lrsGpParams) ⇒ <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code>
+#### lrsGP.pointsToRouteSegments(lrsGpParams) ⇒ [<code>Promise.&lt;FeatureSet&gt;</code>](#external_FeatureSet)
 Locates line segments along routes.
 
-**Kind**: instance method of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
-**Returns**: <code>[Promise.&lt;FeatureSet&gt;](#external_FeatureSet)</code> - - Returns a promise with a Feature Set.  
+**Kind**: instance method of [<code>LrsGP</code>](#exp_module_LrsGP--LrsGP)  
+**Returns**: [<code>Promise.&lt;FeatureSet&gt;</code>](#external_FeatureSet) - - Returns a promise with a Feature Set.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| lrsGpParams | <code>[LrsGPParameters](#module_LrsGPParameters)</code> | LRS GP Parameters. |
+| lrsGpParams | [<code>LrsGPParameters</code>](#module_LrsGPParameters) | LRS GP Parameters. |
 
 **Example**  
 ```js
@@ -181,25 +181,25 @@ var inFeatures = { "geometryType": "esriGeometryPoint", "spatialReference": {
 #### LrsGP~url : <code>string</code>
 The geoprocessing service URL.
 
-**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
+**Kind**: inner property of [<code>LrsGP</code>](#exp_module_LrsGP--LrsGP)  
 <a name="module_LrsGP--LrsGP..pointTaskUrl"></a>
 
 #### LrsGP~pointTaskUrl : <code>string</code>
 URL for the point location task.
 
-**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
+**Kind**: inner property of [<code>LrsGP</code>](#exp_module_LrsGP--LrsGP)  
 <a name="module_LrsGP--LrsGP..linesTaskUrl"></a>
 
 #### LrsGP~linesTaskUrl : <code>string</code>
 URL for the line segment location task.
 
-**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
+**Kind**: inner property of [<code>LrsGP</code>](#exp_module_LrsGP--LrsGP)  
 <a name="module_LrsGP--LrsGP..maxUrlLength"></a>
 
 #### LrsGP~maxUrlLength : <code>number</code>
 Maximum URL length before switching from GET to POST.
 
-**Kind**: inner property of <code>[LrsGP](#exp_module_LrsGP--LrsGP)</code>  
+**Kind**: inner property of [<code>LrsGP</code>](#exp_module_LrsGP--LrsGP)  
 <a name="module_LrsGPParameters"></a>
 
 ## LrsGPParameters
@@ -254,7 +254,7 @@ A module for calling the LRS geoprocessing service.
 #### LinearUnit.UNIT_VALUES : <code>Object.&lt;string, string&gt;</code>
 List of the valid linear unit types.
 
-**Kind**: static constant of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
+**Kind**: static constant of [<code>LinearUnit</code>](#exp_module_LinearUnit--LinearUnit)  
 **Properties**
 
 | Name | Type | Description |
@@ -278,11 +278,11 @@ List of the valid linear unit types.
 #### LinearUnit~distance : <code>number</code>
 A number greater than or equal to zero.
 
-**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
+**Kind**: inner property of [<code>LinearUnit</code>](#exp_module_LinearUnit--LinearUnit)  
 <a name="module_LinearUnit--LinearUnit..distance.set"></a>
 
 ##### distance.set(v)
-**Kind**: static method of <code>[distance](#module_LinearUnit--LinearUnit..distance)</code>  
+**Kind**: static method of [<code>distance</code>](#module_LinearUnit--LinearUnit..distance)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -291,7 +291,7 @@ A number greater than or equal to zero.
 <a name="module_LinearUnit--LinearUnit..units"></a>
 
 #### LinearUnit~units : <code>string</code>
-**Kind**: inner property of <code>[LinearUnit](#exp_module_LinearUnit--LinearUnit)</code>  
+**Kind**: inner property of [<code>LinearUnit</code>](#exp_module_LinearUnit--LinearUnit)  
 <a name="module_RouteDraw"></a>
 
 ## RouteDraw
@@ -299,23 +299,23 @@ Extension of [Draw](#external_Draw)
 
 
 * [RouteDraw](#module_RouteDraw)
-    * [~pointsLayer](#module_RouteDraw..pointsLayer) : <code>[GraphicsLayer](#external_GraphicsLayer)</code>
+    * [~pointsLayer](#module_RouteDraw..pointsLayer) : [<code>GraphicsLayer</code>](#external_GraphicsLayer)
     * [~activatePointDraw(options)](#module_RouteDraw..activatePointDraw)
     * [~activateLineDraw(options)](#module_RouteDraw..activateLineDraw)
     * [~querySnapLayers(geometry)](#module_RouteDraw..querySnapLayers) ⇒ <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code>
 
 <a name="module_RouteDraw..pointsLayer"></a>
 
-### RouteDraw~pointsLayer : <code>[GraphicsLayer](#external_GraphicsLayer)</code>
+### RouteDraw~pointsLayer : [<code>GraphicsLayer</code>](#external_GraphicsLayer)
 Point graphics layer.
 
-**Kind**: inner property of <code>[RouteDraw](#module_RouteDraw)</code>  
+**Kind**: inner property of [<code>RouteDraw</code>](#module_RouteDraw)  
 <a name="module_RouteDraw..activatePointDraw"></a>
 
 ### RouteDraw~activatePointDraw(options)
 Activates the toolbar to draw route points.
 
-**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>  
+**Kind**: inner method of [<code>RouteDraw</code>](#module_RouteDraw)  
 **See**: {external:esri/toolbars/draw}  
 
 | Param | Type | Description |
@@ -327,7 +327,7 @@ Activates the toolbar to draw route points.
 ### RouteDraw~activateLineDraw(options)
 Activates the toolbar to draw a route segment.
 
-**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>  
+**Kind**: inner method of [<code>RouteDraw</code>](#module_RouteDraw)  
 **See**: {external:esri/toolbars/draw}  
 
 | Param | Type | Description |
@@ -339,7 +339,7 @@ Activates the toolbar to draw a route segment.
 ### RouteDraw~querySnapLayers(geometry) ⇒ <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code>
 Queries all of the layers that are used for snapping for the specified geometry.
 
-**Kind**: inner method of <code>[RouteDraw](#module_RouteDraw)</code>  
+**Kind**: inner method of [<code>RouteDraw</code>](#module_RouteDraw)  
 **Returns**: <code>Promise.&lt;Array.&lt;external:Graphic&gt;&gt;</code> - - The results of multiple feature layer queries.  
 
 | Param | Type | Description |
@@ -358,7 +358,7 @@ Queries all of the layers that are used for snapping for the specified geometry.
 | --- | --- | --- |
 | map | <code>external:esri/Map</code> | Map object. |
 | options | <code>Object</code> | Options object. |
-| routeLayers | <code>[Array.&lt;GraphicsLayer&gt;](#external_GraphicsLayer)</code> &#124; <code>Array.&lt;string&gt;</code> | An array of either graphics layers or their IDs. |
+| routeLayers | [<code>Array.&lt;GraphicsLayer&gt;</code>](#external_GraphicsLayer) \| <code>Array.&lt;string&gt;</code> | An array of either graphics layers or their IDs. |
 
 <a name="external_FeatureSet"></a>
 
