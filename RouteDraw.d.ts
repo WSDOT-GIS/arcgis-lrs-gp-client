@@ -7,34 +7,36 @@ import Layer = require("esri/layers/layer");
 import Map = require("esri/map");
 import Geometry = require("esri/geometry/Geometry");
 
-export interface RouteDrawConstructorOptions {
-    routeLayers: GraphicsLayer[] | string[]
+declare interface IRouteDrawConstructorOptions {
+    routeLayers: GraphicsLayer[] | string[];
 }
 
 
-export class RouteDraw extends Draw {
-    snapLayers: Layer[];
-    pointsLayer: GraphicsLayer
-    activatePointDraw(options?: esri.DrawOptions): void;
-    activateLineDraw(options?: esri.DrawOptions): void;
-    querySnapLayers(geometry: Geometry): Promise<Graphic[]>;
+declare class RouteDraw extends Draw {
+    public snapLayers: Layer[];
+    public pointsLayer: GraphicsLayer;
+    public activatePointDraw(options?: esri.DrawOptions): void;
+    public activateLineDraw(options?: esri.DrawOptions): void;
+    public querySnapLayers(geometry: Geometry): Promise<Graphic[]>;
     /**
      * @constructs RouteDraw
      * @param {external:esri/Map} map - Map object.
      * @param {Object} options - Options object.
      * @param {(external:GraphicsLayer[]|string[])} routeLayers - An array of either graphics layers or their IDs.
      */
-    constructor(map: Map, options: RouteDrawConstructorOptions);
-    on(type: "geometry-drawn", listener: (event: { geometry: Geometry }) => void): esri.Handle;
-    on(type: "route-query-complete", listener: (event: {
+    constructor(map: Map, options: IRouteDrawConstructorOptions);
+    public on(type: "geometry-drawn", listener: (event: { geometry: Geometry }) => void): esri.Handle;
+    public on(type: "route-query-complete", listener: (event: {
         routeFeatures: Graphic[],
         pointGraphics: Graphic[],
-        queryGeometry: Geometry
+        queryGeometry: Geometry,
     }) => void): esri.Handle;
-    on(type: "route-query-error", listener: (event: {
+    public on(type: "route-query-error", listener: (event: {
         queryGeometry: Geometry,
         pointGraphics: Graphic[],
-        error: Error
+        error: Error,
     }) => void): esri.Handle;
-    on(type: string, listener: (event: any) => void): esri.Handle;
+    public on(type: string, listener: (event: any) => void): esri.Handle;
 }
+
+export = RouteDraw;

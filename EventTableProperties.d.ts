@@ -1,4 +1,4 @@
-export type EventType = "POINT" | "LINE";
+import { EventType } from "./index";
 
 /**
  * @alias module:EventTableProperties
@@ -10,7 +10,7 @@ export type EventType = "POINT" | "LINE";
  * "TMEAS" if event type is "LINE".
  * @constructor
  */
-export class EventTableProperties {
+declare class EventTableProperties {
     constructor(routeIdField?: string, eventType?: EventType, fromMeasureField?: string, toMeasureField?: string);
     /**
      * @member {string} - The name of the field in the route layer that uniquely identifies a route.
@@ -47,3 +47,4 @@ export class EventTableProperties {
      */
     public toJSON(): string;
 }
+export = EventTableProperties;

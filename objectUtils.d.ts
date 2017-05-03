@@ -1,5 +1,5 @@
 // tslint:disable-next-line:class-name
-export class objectUtils {
+declare class objectUtils {
     /**
      * Checks to see if an object contains ALL of the specified named properties.
      * @param {Object} o - An object
@@ -22,3 +22,5 @@ export class objectUtils {
      */
     public static toUrlSearch(o: object, omitNulls: boolean): string;
 }
+
+export = objectUtils;

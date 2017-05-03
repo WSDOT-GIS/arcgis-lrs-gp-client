@@ -1,13 +1,14 @@
 import { esriGeometryType, FeatureSet, Geometry } from "arcgis-rest-api";
+import {UnprefixedGeometryType} from "./index";
 
-export type UnprefixedGeometryType = "Point" | "Multipoint" | "Polyline" | "Polygon" | "Envelope";
+
 
 /**
  * A module with ArcGIS REST API utility functions.
  * @exports arcGisRestApiUtils
  */
 // tslint:disable-next-line:class-name
-export class arcGisRestApiUtils {
+declare class arcGisRestApiUtils {
     /**
      * Gets the type of the geometry based on its properties.
      * @param geometry - a geometry.
@@ -36,3 +37,5 @@ export class arcGisRestApiUtils {
      */
     public static getFeatureSetGeometryType(featureSet: FeatureSet): esriGeometryType;
 }
+
+export = arcGisRestApiUtils;
