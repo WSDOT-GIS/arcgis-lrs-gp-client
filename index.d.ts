@@ -88,7 +88,6 @@ export interface IRouteSegmentFeatureSet extends FeatureSet {
 
 export type CalculatedAngleType = "NORMAL" | "TANGENT";
 
-
 export interface ILrsGPParametersCommon {
     Input_Features: FeatureSet;
     Route_Features?: string;

@@ -27,37 +27,26 @@
      */
     function execute(url, maxUrlLength) {
         maxUrlLength = maxUrlLength || DEFAULT_MAX_URL_LENGTH;
-        return new Promise(function (resolve, reject) {
-            var promise;
-            if (url.length > maxUrlLength) {
-                var parts = url.split("?", 2);
-                promise = fetch(parts[0], {
-                    headers: {
-                        "content-type": "application/x-www-form-urlencoded"
-                    },
-                    method: 'POST',
-                    body: parts[1]
-                });
-            } else {
-                promise = fetch(url);
-            }
-            promise.then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (j) {
-                        if (j.error) {
-                            reject(j.error);
-                        } else {
-                            resolve(j.results[0].value);
-                        }
-                    });
-                } else {
-                    reject({
-                        url: url,
-                        status: response.status,
-                        statusText: response.statusText
-                    });
-                }
+        var promise;
+        if (url.length > maxUrlLength) {
+            var parts = url.split("?", 2);
+            promise = fetch(parts[0], {
+                headers: {
+                    "content-type": "application/x-www-form-urlencoded"
+                },
+                method: 'POST',
+                body: parts[1]
             });
+        } else {
+            promise = fetch(url);
+        }
+        return promise.then(function (response) {
+            return response.json().then(function(returnedObject) {
+                if (returnedObject.hasOwnProperty("error")) {
+                    throw new Error(JSON.stringify(returnedObject));
+                }
+                return returnedObject;
+            })
         });
     }
 
