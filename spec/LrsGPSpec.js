@@ -720,6 +720,8 @@ describe("LrsGP", function () {
                 lrs.pointsToRouteEvents(gpParams).then(function(results) {
                     expect(results.features.length).toEqual(2);
                     done();
+                }, function(err) {
+                    done.fail(err);
                 })
             });
         });

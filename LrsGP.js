@@ -43,9 +43,10 @@
         return promise.then(function (response) {
             return response.json().then(function(returnedObject) {
                 if (returnedObject.hasOwnProperty("error")) {
+                    // E.g., {"error":{"code":400,"message":"Unable to complete operation.","details":["Error executing tool. Points to Route Events Job ID: j919e35c1b2e349a09198958c9b2487cc"]}}
                     throw new Error(JSON.stringify(returnedObject));
                 }
-                return returnedObject;
+                return returnedObject.results[0].value
             })
         });
     }
