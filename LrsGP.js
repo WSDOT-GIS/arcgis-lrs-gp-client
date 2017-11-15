@@ -23,6 +23,8 @@
     /**
      * Executes a synchronous GP tool.
      * @param {string} url - The URL to execute the GP tool.
+     * @param {number} [maxUrlLength=2000] - Maximum URL length for a GET request.
+     * Longer than this and it will become a POST request.
      * @returns {Promise.<external:FeatureSet>} A promise with the results of the GP tool.
      */
     function execute(url, maxUrlLength) {
@@ -59,7 +61,7 @@
      * @param {Boolean} [options.async=false] - Specifies that the GP service is asynchronous.
      * @param {string} [options.pointTaskName="Points to Route Events"] - Name of the task that converts points to route events.
      * @param {string} [options.linesTaskName="Points to Route Segments"] - Name of the task that converts polylines to route events.
-     * @param {number} [options.maxUrlLength=255] - Maximum URL length before switching from GET to POST.
+     * @param {number} [options.maxUrlLength=2000] - Maximum URL length before switching from GET to POST.
      * @example
      * var lrs = new LrsGP({url: "http://example.com/arcgis/rest/services/OptionalFolderLevel/LinearReferencing/GPServer" });
      * @throws {TypeError} Thrown if either no options are provided or no "url" is provided within the options.
