@@ -35,14 +35,14 @@
   },
   "homepage": "https://github.com/WSDOT-GIS/arcgis-lrs-gp-client#readme",
   "dependencies": {
-    "@types/arcgis-js-api": "^3.20",
+    "@types/arcgis-js-api": "^3.25.0",
     "@types/arcgis-rest-api": "^10.4.3",
     "node-fetch": "^1.6.3"
   },
   "private": true,
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0",
-    "tslint": "^5.1.0",
-    "typescript": "^2.3.2"
+    "jsdoc-to-markdown": "^3.0.4",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
   }
 }
