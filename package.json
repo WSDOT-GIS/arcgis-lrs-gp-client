@@ -37,7 +37,7 @@
   "dependencies": {
     "@types/arcgis-js-api": "^3.25.0",
     "@types/arcgis-rest-api": "^10.4.3",
-    "node-fetch": "^1.6.3"
+    "node-fetch": "^2.6.1"
   },
   "private": true,
   "devDependencies": {
